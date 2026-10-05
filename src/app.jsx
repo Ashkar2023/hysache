@@ -2,12 +2,13 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ReactLenis, useLenis } from 'lenis/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { SplitText } from 'gsap/SplitText'
 import logoMarkup from './assets/logo.svg?raw'
 import heroImage from './assets/images/1.png'
 import houseImage from './assets/images/house.png'
 import collectionImage from './assets/images/collections.png'
 import craftImage from './assets/images/craft.png'
-import storyVideo from './assets/videos/1.mp4'
+import storyVideo from './assets/videos/2.mp4'
 
 /* -------------------------------------------------------------------------- */
 /*  Config & content                                                          */
@@ -19,6 +20,7 @@ const HEADER_OFFSET = 80
 const DESKTOP_BREAKPOINT = 900 // keep in sync with --breakpoint-nav in index.css
 
 gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(SplitText)
 
 const NAVIGATION = [
     ['Home', '#home'],
@@ -214,8 +216,11 @@ function Navbar() {
             >
                 <nav className="hidden gap-[clamp(16px,2vw,34px)] nav:flex" aria-label="Main navigation">
                     {NAVIGATION.map(([label, href]) => (
-                        <a key={href} href={href} className={`py-3 ${SMALL_CAPS}`} onClick={(event) => navigate(event, href)}>
-                            {label}
+                        <a key={href} href={href} className={`nav-link-roll py-3 ${SMALL_CAPS}`} onClick={(event) => navigate(event, href)}>
+                            <span className="nav-link-roll-text">
+                                <span className="nav-link-roll-label">{label}</span>
+                                <span className="nav-link-roll-label nav-link-roll-label-clone" aria-hidden="true">{label}</span>
+                            </span>
                         </a>
                     ))}
                 </nav>
@@ -233,13 +238,13 @@ function Navbar() {
                 </button>
 
                 <a
-                    className="col-start-2 flex items-center gap-2.5 p-[7px]"
+                    className="brand-link col-start-2 flex items-center gap-2.5 p-[7px]"
                     href="#home"
                     aria-label="Hysache home"
                     data-menu-background
                     onClick={(event) => navigate(event, '#home')}
                 >
-                    <Logo />
+                    <Logo className="brand-logo" />
                     {/* <p className="text-3xl font-medium tracking-widest text-nav-accent">HYSACHE</p> */}
                 </a>
             </header>
@@ -279,6 +284,34 @@ function Navbar() {
 /* -------------------------------------------------------------------------- */
 
 function Hero() {
+    const title = useRef(null)
+    const reduced = useReducedMotion()
+
+    useLayoutEffect(() => {
+        if (reduced) return
+
+        const context = gsap.context(() => {
+            const split = SplitText.create(title.current, {
+                type: 'chars',
+                mask: 'chars',
+                charsClass: 'hero-title-char',
+                tag: 'span',
+                aria: 'hidden',
+            })
+
+            gsap.from(split.chars, {
+                yPercent: 20,
+                autoAlpha: 0,
+                duration: 0.45,
+                delay: 0.20,
+                stagger: 0.06,
+                ease: 'power3.out',
+                clearProps: 'transform,opacity,visibility',
+            })
+        }, title)
+
+        return () => context.revert()
+    }, [reduced])
 
     return (
         <section id="home" className="relative h-svh" aria-label="Hysache — thoughtfully made kurtis">
@@ -290,9 +323,20 @@ function Hero() {
                 fetchPriority="high"
             />
             <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/[.23] to-transparent to-30%" />
-            <p className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-semibold text-[#f29494] text-[clamp(4rem,15vw,12.5rem)] select-none">
-                HYSACHE
-            </p>
+            <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 select-none">
+                <p
+                    ref={title}
+                    className="whitespace-nowrap font-extrabold leading-none text-[#f29494] text-[clamp(4rem,15vw,12.5rem)]"
+                >
+                    HYSACHE
+                </p>
+                <span
+                    aria-hidden="true"
+                    className="absolute uppercase right-1 bottom-0 leading-2 whitespace-nowrap text-[clamp(.3rem,.8vw,2rem)] font-light tracking-[.38em] text-[#f29494]"
+                >
+                    Homegrown Luxe
+                </span>
+            </div>
         </section>
     )
 }
@@ -380,7 +424,7 @@ function SplitSection({ id, image, alt, eyebrow, title, copy, link, href, revers
 
 function Footer() {
     return (
-        <footer id="contact" className="site-footer border-t border-line bg-footer-cream px-[7%] pb-6">
+        <footer id="contact" className="site-footer border-t border-line bg-footer-cream px-[7%] pb-6 flex flex-col justify-end">
             <div className="grid grid-cols-2 gap-x-5 gap-y-10 pb-[70px] nav:grid-cols-[2fr_1fr_1fr] nav:gap-[45px]">
                 <div className="col-span-full nav:col-auto">
                     <Logo className="w-[60px] text-nav-bg" />

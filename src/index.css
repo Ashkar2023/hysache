@@ -20,10 +20,6 @@
         @apply bg-cream font-light text-ink;
     }
 
-    a {
-        @apply transition-opacity duration-200 hover:opacity-65;
-    }
-
     section,
     footer {
         scroll-margin-top: 80px;
@@ -40,6 +36,55 @@
 }
 
 @layer components {
+    .brand-logo {
+        transform: scale(1);
+        transition: transform 0.3s;
+        will-change: transform;
+    }
+
+    .brand-link:hover .brand-logo,
+    .brand-link:focus-visible .brand-logo {
+        transform: scale(1.15);
+        transition: transform 0.4s;
+    }
+
+    .nav-link-roll-text {
+        position: relative;
+        display: block;
+        overflow: hidden;
+    }
+
+    .nav-link-roll-label {
+        display: block;
+        transition: transform 400ms cubic-bezier(.22, 1, .36, 1);
+        will-change: transform;
+    }
+
+    .nav-link-roll-label-clone {
+        position: absolute;
+        inset: 0;
+        transform: translateY(100%);
+    }
+
+    .nav-link-roll:hover .nav-link-roll-label:not(.nav-link-roll-label-clone),
+    .nav-link-roll:focus-visible .nav-link-roll-label:not(.nav-link-roll-label-clone) {
+        transform: translateY(-100%);
+    }
+
+    .nav-link-roll:hover .nav-link-roll-label-clone,
+    .nav-link-roll:focus-visible .nav-link-roll-label-clone {
+        transform: translateY(0);
+    }
+
+    .hero-title-char,
+    .hero-title-char-mask {
+        display: inline-block;
+    }
+
+    .hero-title-char {
+        will-change: transform, opacity;
+    }
+
     .page-content {
         position: relative;
         z-index: 10;
@@ -53,13 +98,13 @@
         position: sticky;
         bottom: 0;
         z-index: 0;
-        height: 100vh;
-        margin-top: -50vh;
-        padding-top: calc(10vh + 80px);
+        height: 100dvh;
+        margin-top: -40dvh;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     *,
     ::before,
     ::after {
