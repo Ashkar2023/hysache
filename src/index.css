@@ -95,10 +95,9 @@
     .page-content {
         position: relative;
         z-index: 10;
-        overflow: hidden;
+        overflow: clip;
         background: var(--color-cream);
         transform-origin: center bottom;
-        will-change: transform;
     }
 
     .site-footer {
@@ -107,6 +106,26 @@
         z-index: 0;
         height: 100dvh;
         margin-top: -40dvh;
+    }
+
+    .stacked-panel {
+        position: relative;
+        min-height: 100svh;
+    }
+
+    .stacked-panel-video {
+        filter: brightness(.52) saturate(.82);
+    }
+
+    @media (min-width: 900px) {
+        .stacked-panel {
+            position: sticky;
+            top: var(--stack-top);
+            height: calc(100svh - var(--stack-top));
+            min-height: 620px;
+            box-shadow: 0 -4px 70px rgb(0 0 0 / 0.2);
+            will-change: transform, opacity;
+        }
     }
 }
 

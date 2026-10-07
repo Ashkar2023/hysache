@@ -5,13 +5,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
 import logoMarkup from './assets/logo.svg?raw'
 import heroImage from './assets/images/1.png'
-import houseImage from './assets/images/house.png'
-import craftImage from './assets/images/craft.png'
 import collectionOne from './assets/images/collections/1.jpg'
 import collectionTwo from './assets/images/collections/2.jpg'
 import collectionThree from './assets/images/collections/3.jpg'
 import collectionFour from './assets/images/collections/4.jpg'
-import storyVideo from './assets/videos/2.mp4'
+import stackedVideoOne from './assets/videos/1.mp4'
+import stackedVideoTwo from './assets/videos/2.mp4'
 import storyImage from './assets/images/2.jpg';
 import storyImageLarge from './assets/images/2-large.jpg';
 
@@ -19,7 +18,7 @@ import storyImageLarge from './assets/images/2-large.jpg';
 /*  Config & content                                                          */
 /* -------------------------------------------------------------------------- */
 
-const LENIS_OPTIONS = { lerp: 0.08, wheelMultiplier: 0.9, touchMultiplier: 0.9, autoRaf: true }
+const LENIS_OPTIONS = { lerp: 0.08, wheelMultiplier: 0.9, touchMultiplier: 0.9, autoRaf: false }
 const COPYRIGHT_YEAR = new Date().getFullYear()
 const HEADER_OFFSET = 80
 const DESKTOP_BREAKPOINT = 900 // keep in sync with --breakpoint-nav in index.css
@@ -28,17 +27,15 @@ gsap.registerPlugin(ScrollTrigger)
 gsap.registerPlugin(SplitText)
 
 const NAVIGATION = [
-    ['Home', '#home'],
-    ['About', '#about'],
-    ['Collections', '#collections'],
-    ['Contact', '#contact'],
+    ['home', '#home'],
+    ['story', '#collections'],
+    ['Enquire', '#contact'],
 ]
 
 const SECTIONS = [
     {
         id: 'about',
-        image: houseImage,
-        alt: 'An intimate glimpse into the world of Hysache',
+        video: stackedVideoOne,
         eyebrow: '01 — The house of Hysache',
         title: <>Rooted in tradition.<br />Made for your everyday.</>,
         copy: 'We believe the things you wear should feel like you. Thoughtful silhouettes, familiar textures, and a little of the extraordinary — woven into the everyday.',
@@ -47,14 +44,13 @@ const SECTIONS = [
     },
     {
         id: 'craft',
-        image: craftImage,
-        alt: 'A close look at the fabric and handwork behind a Hysache kurti',
+        video: stackedVideoTwo,
         eyebrow: '03 — The art of making',
         title: <>Care in every thread.</>,
         copy: 'It begins with the fabric, and lives in the details. A patient process, a thoughtful finish, and a respect for the hands that bring each piece to life.',
         link: 'Get in touch',
         href: '#contact',
-    },
+    }
 ]
 
 const COLLECTIONS = [
@@ -83,6 +79,71 @@ const COLLECTIONS = [
         href: '#contact',
     },
 ]
+
+const TESTIMONIALS = [
+    // {
+    //     name: 'Roshni Kt',
+    //     quote: 'We were really impressed with this store’s stitching services. They handle every customization flawlessly—whether it’s intricate designs or simple tweaks. Plus, the store’s atmosphere is great, and the staff was super friendly and helpful throughout. Definitely a place to go if you want perfect stitching and great service!❤️',
+    // },
+    {
+        name: 'Merleena Paul',
+        quote: 'Fast, affordable, and top-tier stitching quality! Excellent customer service as well, they really listen to what you want. Will definitely be coming back',
+    },
+    {
+        name: 'Wardha Naushad',
+        quote: 'Absolutely loved shopping from Hysache. The collection is stylish, elegant, and the quality of the fabrics feels premium. Highly recommended for anyone looking for beautiful ladies clothing at great value.',
+    },
+    {
+        name: 'Amna Fathima PS',
+        quote: 'One of my all time favourite boutique….loved their collections so much and especially they customize costumes to our preferences…..supportive lovely staffs and their stitching was so amazing beyond words….',
+    },
+    {
+        name: 'Refia Salam',
+        quote: 'Good fabrics, clean stitching, and reliable service — definitely a place I’d recommend if you’re looking for something custom and well-made.❤️',
+    },
+    {
+        name: 'Geethu V Nair',
+        quote: '\u200bGreat experience. The stitching was done perfectly and the staff is very friendly and professional. I’m very satisfied with the final product.',
+    },
+    {
+        name: 'Renjana Nibu',
+        quote: 'Absolutely loved the stitching and fitting the outfit was neatly done amd looked exactly how i wanted',
+    },
+    {
+        name: 'Merin Tom',
+        quote: 'Loved this boutique! Stylish, well-curated collection with great quality. The staff were friendly and helpful, making the whole experience enjoyable. Definitely worth a visit!',
+    },
+    {
+        name: 'Prarthana Karinatt',
+        quote: 'Owner helped me out a lot and i got my dream engagement dress at the last moment ♥️Thankyou team',
+    },
+    // {
+    //     name: 'Sajeena Nazar',
+    //     quote: 'Satisfied with the Alteration and had a good customer interaction . Also the collections were quite unique',
+    // },
+    // {
+    //     name: 'Irene Jacob',
+    //     quote: 'The best that I’ve seen so far in town!! Very comfortable fabric and good quality.😍🧿',
+    // },
+    // {
+    //     name: 'gazia george',
+    //     quote: 'Nice quality clothes and the staff were very polite and friendly. Had a great shopping experience overall.',
+    // },
+    // {
+    //     name: 'Fousiya Shebeer',
+    //     quote: 'Truly satisfied with their stitching ❤️ & unique collection in salwars & kurti sets',
+    // },
+    // {
+    //     name: 'Muhammed Nazim',
+    //     quote: 'stylish collection, great quality, and excellent customer service. Highly recommended!',
+    // },
+    // {
+    //     name: 'Siji E. A',
+    //     quote: 'Good service at Hysache. Special thanks to Alameen for customer support. 👍',
+    // },
+]
+
+const GOOGLE_REVIEWS_URL = 'https://www.google.com/search?q=Hysache&utm_source=chatgpt.com#lrd=0x3b080dceb29ebf31:0x38c6fb734f861d3f,1,,,,'
 
 const FOOTER_EXPLORE = [
     ['Home', '#home'],
@@ -132,6 +193,23 @@ function Logo({ className = '' }) {
     )
 }
 
+function GoogleLogo({ className = '' }) {
+    return (
+        <svg
+            className={className}
+            viewBox="-3 0 262 262"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid"
+            aria-hidden="true"
+        >
+            <path d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" fill="#4285F4" />
+            <path d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1" fill="#34A853" />
+            <path d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782" fill="#FBBC05" />
+            <path d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251" fill="#EB4335" />
+        </svg>
+    )
+}
+
 function Reveal({ children, className = '' }) {
     const ref = useRef(null)
     const reduced = useReducedMotion()
@@ -159,6 +237,44 @@ function Reveal({ children, className = '' }) {
         >
             {children}
         </div>
+    )
+}
+
+function BackgroundVideo({ src }) {
+    const video = useRef(null)
+    const reduced = useReducedMotion()
+
+    useEffect(() => {
+        const element = video.current
+        if (!element || reduced) return
+
+        const play = () => element.play().catch(() => { })
+
+        if (!('IntersectionObserver' in window)) {
+            play()
+            return
+        }
+
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) play()
+            else element.pause()
+        }, { rootMargin: '20% 0px', threshold: 0.05 })
+
+        observer.observe(element)
+        return () => observer.disconnect()
+    }, [reduced, src])
+
+    return (
+        <video
+            ref={video}
+            className="stacked-panel-video absolute inset-0 size-full object-cover"
+            src={src}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+        />
     )
 }
 
@@ -438,7 +554,6 @@ function StorySection() {
 
 function CollectionsSection() {
     const section = useRef(null)
-    const grid = useRef(null)
     const reduced = useReducedMotion()
 
     function animateCardImage(event, scale) {
@@ -454,38 +569,26 @@ function CollectionsSection() {
     useLayoutEffect(() => {
         const context = gsap.context(() => {
             const cards = gsap.utils.toArray('.collection-card')
-            const imageLayers = gsap.utils.toArray('.image-zoom-out')
 
             if (reduced) {
                 gsap.set(cards, { clipPath: 'inset(0%)' })
-                gsap.set(imageLayers, { scale: 1 })
                 return
             }
 
             gsap.set(cards, { clipPath: 'inset(25%)' })
-            gsap.set(imageLayers, { scale: 1.3 })
 
-            const timeline = gsap.timeline({
-                scrollTrigger: {
-                    trigger: grid.current,
-                    start: 'top 90%',
-                    once: true,
-                },
-            })
-
-            timeline
-                .to(cards, {
+            cards.forEach((card) => {
+                gsap.to(card, {
                     clipPath: 'inset(0%)',
                     duration: 1.7,
                     ease: 'power4.out',
-                    stagger: 0.1
-                }, 0)
-                .to(imageLayers, {
-                    scale: 1,
-                    duration: 1.7,
-                    ease: 'power4.out',
-                    stagger: 0.1
-                }, 0)
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 90%',
+                        once: true,
+                    },
+                })
+            })
         }, section)
 
         return () => context.revert()
@@ -515,7 +618,7 @@ function CollectionsSection() {
                 </a>
             </div>
 
-            <div ref={grid} className="grid min-w-0 flex-1 grid-cols-8 gap-3 sm:gap-5">
+            <div className="grid min-w-0 flex-1 grid-cols-8 gap-3 sm:gap-5">
                 {COLLECTIONS.map((collection, index) => {
                     const span = index % 4 === 0 || index % 4 === 3 ? 'sm:col-span-5' : 'sm:col-span-3'
 
@@ -538,11 +641,11 @@ function CollectionsSection() {
                                     decoding="async"
                                 />
                             </div>
-                            <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent" aria-hidden="true" />
+                            {/* <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent" aria-hidden="true" />
                             <div className="absolute inset-x-0 bottom-0 translate-y-[calc(100%-4.5rem)] p-6 text-white transition-transform duration-[600ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-y-0 group-focus-visible:translate-y-0 sm:p-8">
                                 <h3 className="text-2xl font-light tracking-[-.035em]">{collection.title}</h3>
                                 <p className="mt-3 max-w-[320px] text-xs leading-relaxed text-white/85">{collection.description}</p>
-                            </div>
+                            </div> */}
                         </a>
                     )
                 })}
@@ -551,37 +654,202 @@ function CollectionsSection() {
     )
 }
 
-function SplitSection({ id, image, alt, eyebrow, title, copy, link, href, reverse = false, number }) {
-    const gutter = 'nav:px-[clamp(35px,7vw,130px)]'
+function StackedPanel({ section, index, panelRef }) {
+    const { id, video, eyebrow, title, copy, link, href } = section
 
     return (
-        <section id={id} className="grid grid-cols-1 nav:min-h-screen nav:grid-cols-2" aria-labelledby={`${id}-title`}>
-            <div className={`aspect-[4/5] overflow-hidden nav:aspect-auto nav:min-h-screen ${reverse ? 'nav:order-2' : ''}`}>
-                <img className="h-full w-full object-cover" src={image} alt={alt} loading="lazy" decoding="async" />
-            </div>
+        <section
+            ref={panelRef}
+            id={id}
+            className="stacked-panel flex items-center justify-center overflow-hidden bg-ink text-white"
+            style={{ '--stack-top': `${HEADER_OFFSET + 12 + index * 14}px`, zIndex: index + 1 }}
+            aria-labelledby={`${id}-title`}
+        >
+            <BackgroundVideo src={video} />
 
-            <div className={`relative flex min-h-[520px] items-center justify-center px-[9%] pb-[100px] pt-20 nav:min-h-0 nav:py-[100px] ${gutter}`}>
-                <Reveal className="w-full nav:max-w-[410px]">
-                    <p className={`mb-[34px] ${EYEBROW}`}>{eyebrow}</p>
+            <div className="absolute inset-0 bg-cream/[.08]" aria-hidden="true" />
+
+            <div className="relative z-10 w-full px-[8%] py-28 text-center nav:px-[clamp(35px,7vw,120px)]">
+                <Reveal className="mx-auto flex max-w-[820px] flex-col items-center">
+                    <p className={`mb-8 text-white/85 ${EYEBROW}`}>{eyebrow}</p>
                     <h2
                         id={`${id}-title`}
-                        className="mb-7 text-[clamp(30px,6vw,42px)] font-light leading-[1.3] tracking-[-.045em] nav:text-[clamp(28px,3vw,48px)]"
+                        className="text-[clamp(38px,6vw,82px)] font-light leading-[1.04] tracking-[-.055em]"
                     >
                         {title}
                     </h2>
-                    <p className="mb-10 max-w-[345px] text-sm leading-[1.95] text-muted">{copy}</p>
-                    <a className={`group inline-flex items-center gap-6 py-2 ${SMALL_CAPS}`} href={href}>
+                    <p className="mt-8 max-w-[580px] text-sm leading-[1.95] text-white/85">{copy}</p>
+                    <a className={`group mt-10 inline-flex w-fit items-center gap-6 py-2 ${SMALL_CAPS}`} href={href}>
                         {link}
                         <span className="text-xl font-light transition-transform group-hover:translate-x-[5px]" aria-hidden="true">→</span>
                     </a>
                 </Reveal>
+            </div>
+        </section>
+    )
+}
 
-                <span
-                    className="absolute bottom-7 left-[9%] text-[8px] tracking-[.18em] text-faint nav:bottom-[35px] nav:left-[clamp(35px,7vw,130px)]"
-                    aria-hidden="true"
-                >
-                    {number} / HYSACHE
-                </span>
+function StackedSections() {
+    const stack = useRef(null)
+    const panels = useRef([])
+    const reduced = useReducedMotion()
+
+    useLayoutEffect(() => {
+        const elements = panels.current.slice(0, SECTIONS.length).filter(Boolean)
+
+        if (reduced) {
+            gsap.set(elements, { clearProps: 'transform,opacity' })
+            return
+        }
+
+        const context = gsap.context(() => {
+            const media = gsap.matchMedia()
+
+            media.add(`(min-width: ${DESKTOP_BREAKPOINT}px)`, () => {
+                gsap.set(elements, { transformOrigin: '50% 0%', scale: 1, opacity: 1 })
+
+                elements.forEach((incoming, incomingIndex) => {
+                    if (incomingIndex === 0) return
+
+                    const previousPanels = elements.slice(0, incomingIndex)
+                    gsap.fromTo(previousPanels,
+                        {
+                            scale: (panelIndex) => 1 - Math.max(0, incomingIndex - 1 - panelIndex) * 0.018,
+                            opacity: (panelIndex) => 1 - Math.max(0, incomingIndex - 1 - panelIndex) * 0.14,
+                        },
+                        {
+                            scale: (panelIndex) => 1 - (incomingIndex - panelIndex) * 0.018,
+                            opacity: (panelIndex) => 1 - (incomingIndex - panelIndex) * 0.14,
+                            ease: 'none',
+                            scrollTrigger: {
+                                trigger: incoming,
+                                start: 'top 92%',
+                                end: () => `top ${HEADER_OFFSET + 12 + incomingIndex * 14}px`,
+                                scrub: 0.6,
+                                invalidateOnRefresh: true,
+                            },
+                        },
+                    )
+                })
+
+                return () => gsap.set(elements, { clearProps: 'transform,opacity' })
+            })
+
+            return () => media.revert()
+        }, stack)
+
+        return () => context.revert()
+    }, [reduced])
+
+    return (
+        <div ref={stack} className="stacked-sections bg-cream">
+            {SECTIONS.map((section, index) => (
+                <StackedPanel
+                    key={section.id}
+                    section={section}
+                    index={index}
+                    panelRef={(element) => { panels.current[index] = element }}
+                />
+            ))}
+        </div>
+    )
+}
+
+function TestimonialsSection() {
+    const section = useRef(null)
+    const pin = useRef(null)
+    const track = useRef(null)
+    const reduced = useReducedMotion()
+
+    useLayoutEffect(() => {
+        if (reduced) return
+
+        const context = gsap.context(() => {
+            const horizontalDistance = () => Math.max(0, track.current.scrollWidth - window.innerWidth)
+
+            gsap.to(track.current, {
+                x: () => -horizontalDistance(),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: pin.current,
+                    start: 'top top',
+                    end: () => `+=${horizontalDistance()}`,
+                    pin: true,
+                    anticipatePin: 1,
+                    scrub: 0.15,
+                    invalidateOnRefresh: true,
+                },
+            })
+        }, section)
+
+        return () => context.revert()
+    }, [reduced])
+
+    return (
+        <section
+            ref={section}
+            id="testimonials"
+            className="relative z-10 bg-footer-cream"
+            aria-labelledby="testimonials-title"
+        >
+            <div ref={pin} className="overflow-hidden bg-footer-cream">
+                <div className="flex min-h-svh flex-col justify-center py-12 nav:py-16">
+                    <div className="px-[7%]">
+                        <p className={`mb-7 text-nav-bg ${EYEBROW}`}>04 — Testimonials</p>
+                        <div className="flex flex-col gap-6">
+                            <h2
+                                id="testimonials-title"
+                                className="max-w-[760px] text-[clamp(38px,5vw,64px)] font-light leading-[1.08] tracking-[-.045em] text-nav-bg"
+                            >
+                                What our customers say.
+                            </h2>
+                            <p className="max-w-[420px] text-sm leading-[1.95] text-muted">
+                                Kind words from people who have made Hysache part of their wardrobes and their everyday moments.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        ref={track}
+                        className={reduced
+                            ? 'mt-10 grid gap-px px-[7%] nav:grid-cols-2'
+                            : 'mt-10 flex w-max gap-px px-[7%] will-change-transform'
+                        }
+                    >
+                        {TESTIMONIALS.map((testimonial, index) => (
+                            <article
+                                key={testimonial.name}
+                                className={`${reduced ? 'w-full' : 'w-[82vw] max-w-[500px] nav:w-[38vw]'} flex min-h-[300px] flex-col border border-nav-bg/15 p-7 nav:min-h-[330px] nav:p-10 ${index % 2 === 0 ? 'bg-cream' : 'bg-nav-bg text-cream'}`}
+                            >
+                                <blockquote className="my-auto line-clamp-4 py-8 text-[clamp(14px,1.1vw,17px)] font-light leading-[1.55] tracking-[-.02em]">
+                                    “{testimonial.quote}”
+                                </blockquote>
+
+                                <footer className={`flex items-center justify-between gap-5 border-t pt-5 ${index % 2 === 0 ? 'border-nav-bg/15' : 'border-cream/20'}`}>
+                                    <p className="text-sm font-normal">{testimonial.name}</p>
+                                    <GoogleLogo className="size-5 shrink-0" />
+                                </footer>
+                            </article>
+                        ))}
+
+                        <a
+                            className={`${reduced ? 'w-full' : 'w-[82vw] max-w-[500px] nav:w-[38vw]'} group flex min-h-[300px] flex-col justify-between border border-nav-bg bg-nav-accent p-7 text-nav-bg nav:min-h-[330px] nav:p-10`}
+                            href={GOOGLE_REVIEWS_URL}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label="Read all Hysache reviews on Google"
+                        >
+                            <GoogleLogo className="size-9" />
+                            <p className="max-w-[360px] text-[clamp(28px,3vw,46px)] font-light leading-[1.12] tracking-[-.045em]">
+                                Read all reviews on Google.
+                            </p>
+                            <span className={`inline-flex items-center gap-5 ${SMALL_CAPS}`}>
+                                Open Google
+                                <span className="text-xl transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">↗</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
     )
@@ -657,12 +925,17 @@ function Page() {
                 {
                     scaleX: 0.95,
                     ease: 'none',
+                    immediateRender: false,
                     scrollTrigger: {
                         trigger: main.current,
                         start: 'bottom bottom',
                         end: 'bottom 10%',
                         scrub: true,
                         invalidateOnRefresh: true,
+                        onToggle: (self) => {
+                            main.current.style.willChange = self.isActive ? 'transform' : ''
+                        },
+                        onLeaveBack: () => gsap.set(main.current, { clearProps: 'transform' }),
                     },
                 },
             )
@@ -678,8 +951,8 @@ function Page() {
                 <Hero />
                 <CollectionsSection />
                 <StorySection />
-                <SplitSection number="01" {...SECTIONS[0]} />
-                <SplitSection number="03" {...SECTIONS[1]} />
+                <StackedSections />
+                <TestimonialsSection />
             </main>
             <Footer />
             <WhatsAppButton />
@@ -687,14 +960,37 @@ function Page() {
     )
 }
 
+function LenisSync() {
+    useLenis(ScrollTrigger.update) // runs on every Lenis scroll
+    return null
+}
+
 export default function App() {
     const reduced = useReducedMotion()
+    const lenisRef = useRef(null)
+
+    useEffect(() => {
+        if (reduced) return
+
+        const tick = (time) => lenisRef.current?.lenis?.raf(time * 1000)
+        gsap.ticker.add(tick)
+        gsap.ticker.lagSmoothing(0)
+
+        const lenis = lenisRef.current?.lenis
+        lenis?.on('scroll', ScrollTrigger.update)
+
+        return () => {
+            gsap.ticker.remove(tick)
+            lenis?.off('scroll', ScrollTrigger.update)
+        }
+    }, [reduced])
 
     // Reduced motion bypasses the smooth-scroll provider.
     if (reduced) return <Page />
 
     return (
-        <ReactLenis root options={LENIS_OPTIONS}>
+        <ReactLenis root ref={lenisRef} options={LENIS_OPTIONS}>
+            <LenisSync />
             <Page />
         </ReactLenis>
     )
