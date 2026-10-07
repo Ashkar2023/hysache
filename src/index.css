@@ -109,8 +109,12 @@
     }
 
     .stacked-panel {
-        position: relative;
-        min-height: 100svh;
+        position: sticky;
+        top: var(--stack-top-mobile);
+        height: calc(100svh - var(--stack-top-mobile));
+        min-height: 560px;
+        box-shadow: 0 -4px 70px rgb(0 0 0 / 0.2);
+        will-change: transform, opacity;
     }
 
     .stacked-panel-video {
@@ -119,12 +123,9 @@
 
     @media (min-width: 900px) {
         .stacked-panel {
-            position: sticky;
             top: var(--stack-top);
             height: calc(100svh - var(--stack-top));
             min-height: 620px;
-            box-shadow: 0 -4px 70px rgb(0 0 0 / 0.2);
-            will-change: transform, opacity;
         }
     }
 }

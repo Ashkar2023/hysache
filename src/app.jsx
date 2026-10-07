@@ -13,6 +13,8 @@ import stackedVideoOne from './assets/videos/1.mp4'
 import stackedVideoTwo from './assets/videos/2.mp4'
 import storyImage from './assets/images/2.jpg';
 import storyImageLarge from './assets/images/2-large.jpg';
+import storeImage from './assets/images/inside-store.png'
+import storeMapImage from './assets/images/hysache-map.svg'
 
 /* -------------------------------------------------------------------------- */
 /*  Config & content                                                          */
@@ -144,6 +146,7 @@ const TESTIMONIALS = [
 ]
 
 const GOOGLE_REVIEWS_URL = 'https://www.google.com/search?q=Hysache&utm_source=chatgpt.com#lrd=0x3b080dceb29ebf31:0x38c6fb734f861d3f,1,,,,'
+const GOOGLE_MAPS_URL = 'https://www.google.com/maps/place/Hysache/@10.0414267,76.3154177,17z/data=!3m1!4b1!4m6!3m5!1s0x3b080dceb29ebf31:0x38c6fb734f861d3f!8m2!3d10.0414267!4d76.3154177!16s%2Fg%2F11n43310wb'
 
 const FOOTER_EXPLORE = [
     ['Home', '#home'],
@@ -662,7 +665,11 @@ function StackedPanel({ section, index, panelRef }) {
             ref={panelRef}
             id={id}
             className="stacked-panel flex items-center justify-center overflow-hidden bg-ink text-white"
-            style={{ '--stack-top': `${HEADER_OFFSET + 12 + index * 14}px`, zIndex: index + 1 }}
+            style={{
+                '--stack-top': `${HEADER_OFFSET + 12 + index * 14}px`,
+                '--stack-top-mobile': `${HEADER_OFFSET + 4 + index * 8}px`,
+                zIndex: index + 1,
+            }}
             aria-labelledby={`${id}-title`}
         >
             <BackgroundVideo src={video} />
@@ -705,7 +712,16 @@ function StackedSections() {
         const context = gsap.context(() => {
             const media = gsap.matchMedia()
 
-            media.add(`(min-width: ${DESKTOP_BREAKPOINT}px)`, () => {
+            media.add({
+                mobile: `(max-width: ${DESKTOP_BREAKPOINT - 1}px)`,
+                desktop: `(min-width: ${DESKTOP_BREAKPOINT}px)`,
+            }, ({ conditions }) => {
+                const isMobile = conditions.mobile
+                const topBase = HEADER_OFFSET + (isMobile ? 4 : 12)
+                const topStep = isMobile ? 8 : 14
+                const scaleStep = isMobile ? 0.012 : 0.018
+                const opacityStep = isMobile ? 0.08 : 0.14
+
                 gsap.set(elements, { transformOrigin: '50% 0%', scale: 1, opacity: 1 })
 
                 elements.forEach((incoming, incomingIndex) => {
@@ -714,17 +730,17 @@ function StackedSections() {
                     const previousPanels = elements.slice(0, incomingIndex)
                     gsap.fromTo(previousPanels,
                         {
-                            scale: (panelIndex) => 1 - Math.max(0, incomingIndex - 1 - panelIndex) * 0.018,
-                            opacity: (panelIndex) => 1 - Math.max(0, incomingIndex - 1 - panelIndex) * 0.14,
+                            scale: (panelIndex) => 1 - Math.max(0, incomingIndex - 1 - panelIndex) * scaleStep,
+                            opacity: (panelIndex) => 1 - Math.max(0, incomingIndex - 1 - panelIndex) * opacityStep,
                         },
                         {
-                            scale: (panelIndex) => 1 - (incomingIndex - panelIndex) * 0.018,
-                            opacity: (panelIndex) => 1 - (incomingIndex - panelIndex) * 0.14,
+                            scale: (panelIndex) => 1 - (incomingIndex - panelIndex) * scaleStep,
+                            opacity: (panelIndex) => 1 - (incomingIndex - panelIndex) * opacityStep,
                             ease: 'none',
                             scrollTrigger: {
                                 trigger: incoming,
-                                start: 'top 92%',
-                                end: () => `top ${HEADER_OFFSET + 12 + incomingIndex * 14}px`,
+                                start: isMobile ? 'top 96%' : 'top 92%',
+                                end: () => `top ${topBase + incomingIndex * topStep}px`,
                                 scrub: 0.6,
                                 invalidateOnRefresh: true,
                             },
@@ -755,6 +771,73 @@ function StackedSections() {
     )
 }
 
+function StoreSection() {
+    return (
+        <section
+            id="store"
+            className="relative isolate overflow-hidden bg-nav-bg"
+            aria-labelledby="store-title"
+        >
+            <div className="grid min-h-svh nav:grid-cols-[46%_54%]">
+                <div className="relative min-h-[62svh] overflow-hidden nav:min-h-svh">
+                    <img
+                        src={storeImage}
+                        alt="Inside the Hysache store, with curated garments and warm wooden displays"
+                        className="absolute inset-0 h-full w-full object-cover"
+                        loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-nav-bg/25" aria-hidden="true" />
+                    <div
+                        className="absolute inset-0 bg-linear-to-t from-nav-bg via-nav-bg/15 to-transparent nav:bg-linear-to-r nav:from-nav-bg/65 nav:via-nav-bg/15 nav:to-nav-bg"
+                        aria-hidden="true"
+                    />
+
+                    <div className="absolute inset-x-0 bottom-0 z-10 px-[9%] pb-12 text-cream nav:bottom-auto nav:top-1/2 nav:-translate-y-1/2 nav:px-[14%] nav:pb-0">
+                        <p className={`mb-7 ${EYEBROW}`}>04 — Our store</p>
+                        <h2
+                            id="store-title"
+                            className="max-w-[520px] text-[clamp(40px,5.5vw,76px)] font-light leading-[1.04] tracking-[-.05em]"
+                        >
+                            Come in.
+                            <br />Stay awhile.
+                        </h2>
+                        <p className="mt-7 max-w-[420px] text-sm leading-[1.95] text-cream/85">
+                            Discover the collection in person, explore fabrics at your own pace, and let us help shape something that feels entirely yours.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="relative flex items-center justify-center overflow-hidden bg-nav-bg nav:min-h-svh">
+                    <a
+                        href={GOOGLE_MAPS_URL}
+                        target="_blank"
+                        rel="noopener"
+                        referrerPolicy="origin"
+                        className="relative block w-full h-full"
+                        aria-label="Open Hysache in Google Maps"
+                    >
+                        <div
+                            className="pointer-events-none absolute inset-0 z-10
+                                bg-linear-to-b from-0% from-nav-bg to-10% to-transparent nav:bg-linear-to-r from-0% from-nav-bg to-20% to-transparent"
+                            aria-hidden="true"
+                        />
+                        <img
+                            src={storeMapImage}
+                            alt="Illustrated map showing Hysache and nearby landmarks"
+                            className="block h-full w-auto select-none object-cover scale-125 sm:scale-100"
+                            draggable="false"
+                        />
+                        <span className={`absolute bottom-6 right-6 inline-flex items-center md:gap-4 md:px-5 md:py-3 text-nav-accent ${SMALL_CAPS}`}>
+                            Open in Google Maps
+                            <span className="text-base transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">↗</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    )
+}
+
 function TestimonialsSection() {
     const section = useRef(null)
     const pin = useRef(null)
@@ -776,7 +859,7 @@ function TestimonialsSection() {
                     end: () => `+=${horizontalDistance()}`,
                     pin: true,
                     anticipatePin: 1,
-                    scrub: 0.15,
+                    scrub: 0.13,
                     invalidateOnRefresh: true,
                 },
             })
@@ -789,13 +872,13 @@ function TestimonialsSection() {
         <section
             ref={section}
             id="testimonials"
-            className="relative z-10 bg-footer-cream"
+            className="relative z-10"
             aria-labelledby="testimonials-title"
         >
-            <div ref={pin} className="overflow-hidden bg-footer-cream">
+            <div ref={pin} className="overflow-hidden bg-cream">
                 <div className="flex min-h-svh flex-col justify-center py-12 nav:py-16">
                     <div className="px-[7%]">
-                        <p className={`mb-7 text-nav-bg ${EYEBROW}`}>04 — Testimonials</p>
+                        <p className={`mb-7 text-nav-bg ${EYEBROW}`}>05 — Testimonials</p>
                         <div className="flex flex-col gap-6">
                             <h2
                                 id="testimonials-title"
@@ -819,7 +902,7 @@ function TestimonialsSection() {
                         {TESTIMONIALS.map((testimonial, index) => (
                             <article
                                 key={testimonial.name}
-                                className={`${reduced ? 'w-full' : 'w-[82vw] max-w-[500px] nav:w-[38vw]'} flex min-h-[300px] flex-col border border-nav-bg/15 p-7 nav:min-h-[330px] nav:p-10 ${index % 2 === 0 ? 'bg-cream' : 'bg-nav-bg text-cream'}`}
+                                className={`${reduced ? 'w-full' : 'w-[82vw] max-w-[500px] nav:w-[38vw]'} flex min-h-[300px] flex-col border border-nav-bg/15 p-7 nav:min-h-[330px] nav:p-10 ${index % 2 === 0 ? 'bg-footer-cream' : 'bg-nav-bg text-cream'}`}
                             >
                                 <blockquote className="my-auto line-clamp-4 py-8 text-[clamp(14px,1.1vw,17px)] font-light leading-[1.55] tracking-[-.02em]">
                                     “{testimonial.quote}”
@@ -953,6 +1036,7 @@ function Page() {
                 <StorySection />
                 <StackedSections />
                 <TestimonialsSection />
+                <StoreSection />
             </main>
             <Footer />
             <WhatsAppButton />
