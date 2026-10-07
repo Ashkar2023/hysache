@@ -6,9 +6,14 @@ import { SplitText } from 'gsap/SplitText'
 import logoMarkup from './assets/logo.svg?raw'
 import heroImage from './assets/images/1.png'
 import houseImage from './assets/images/house.png'
-import collectionImage from './assets/images/collections.png'
 import craftImage from './assets/images/craft.png'
+import collectionOne from './assets/images/collections/1.jpg'
+import collectionTwo from './assets/images/collections/2.jpg'
+import collectionThree from './assets/images/collections/3.jpg'
+import collectionFour from './assets/images/collections/4.jpg'
 import storyVideo from './assets/videos/2.mp4'
+import storyImage from './assets/images/2.jpg';
+import storyImageLarge from './assets/images/2-large.jpg';
 
 /* -------------------------------------------------------------------------- */
 /*  Config & content                                                          */
@@ -41,17 +46,6 @@ const SECTIONS = [
         href: '#craft',
     },
     {
-        id: 'collections',
-        image: collectionImage,
-        alt: 'Kurtis from the Hysache collection, with considered details and relaxed shapes',
-        eyebrow: '02 — A considered wardrobe',
-        title: <>For moments.<br />For years.</>,
-        copy: 'Easy shapes. Quiet details. Pieces that move with you, from slow mornings to evenings that linger. Discover our expression of modern Indian dressing.',
-        link: 'Explore the craft',
-        href: '#craft',
-        reverse: true,
-    },
-    {
         id: 'craft',
         image: craftImage,
         alt: 'A close look at the fabric and handwork behind a Hysache kurti',
@@ -59,6 +53,33 @@ const SECTIONS = [
         title: <>Care in every thread.</>,
         copy: 'It begins with the fabric, and lives in the details. A patient process, a thoughtful finish, and a respect for the hands that bring each piece to life.',
         link: 'Get in touch',
+        href: '#contact',
+    },
+]
+
+const COLLECTIONS = [
+    {
+        image: collectionOne,
+        title: 'The Day Edit',
+        description: 'Easy silhouettes made for unhurried days.',
+        href: '#contact',
+    },
+    {
+        image: collectionTwo,
+        title: 'Evening Light',
+        description: 'Quiet detail, softened for after dark.',
+        href: '#contact',
+    },
+    {
+        image: collectionThree,
+        title: 'In Bloom',
+        description: 'Botanical notes in considered colour.',
+        href: '#contact',
+    },
+    {
+        image: collectionFour,
+        title: 'Foundations',
+        description: 'Enduring pieces for an everyday wardrobe.',
         href: '#contact',
     },
 ]
@@ -215,8 +236,14 @@ function Navbar() {
                 className={`fixed inset-x-0 top-0 z-50 grid h-20 grid-cols-[1fr_auto_1fr] items-center bg-[rgb(111_29_51/var(--nav-opacity))] px-6 text-nav-accent [--nav-opacity:0] nav:px-[3.5%] ${open ? 'max-nav:bg-nav-bg' : ''}`}
             >
                 <nav className="hidden gap-[clamp(16px,2vw,34px)] nav:flex" aria-label="Main navigation">
-                    {NAVIGATION.map(([label, href]) => (
-                        <a key={href} href={href} className={`nav-link-roll py-3 ${SMALL_CAPS}`} onClick={(event) => navigate(event, href)}>
+                    {NAVIGATION.map(([label, href], index) => (
+                        <a
+                            key={href}
+                            href={href}
+                            className={`desktop-nav-item nav-link-roll py-3 ${SMALL_CAPS}`}
+                            style={{ '--nav-item-delay': `${120 + index * 80}ms` }}
+                            onClick={(event) => navigate(event, href)}
+                        >
                             <span className="nav-link-roll-text">
                                 <span className="nav-link-roll-label">{label}</span>
                                 <span className="nav-link-roll-label nav-link-roll-label-clone" aria-hidden="true">{label}</span>
@@ -303,7 +330,7 @@ function Hero() {
                 yPercent: 20,
                 autoAlpha: 0,
                 duration: 0.45,
-                delay: 0.20,
+                delay: .35,
                 stagger: 0.06,
                 ease: 'power3.out',
                 clearProps: 'transform,opacity,visibility',
@@ -326,7 +353,7 @@ function Hero() {
             <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 select-none">
                 <p
                     ref={title}
-                    className="whitespace-nowrap font-extrabold leading-none text-[#f29494] text-[clamp(4rem,15vw,12.5rem)]"
+                    className="whitespace-nowrap font-thin leading-none text-[#f29494] text-[clamp(4.5rem,15vw,12.5rem)] md:text-shadow-none text-shadow-lg"
                 >
                     HYSACHE
                 </p>
@@ -347,41 +374,179 @@ function StorySection() {
     return (
         <section
             id="story"
-            className="relative overflow-hidden px-[9%] py-24 text-cream nav:px-[clamp(35px,7vw,130px)] nav:py-36"
+            className="relative flex min-h-[100svh] items-center overflow-hidden text-cream"
             aria-labelledby="story-title"
         >
-            {!reduced && (
-                <video
-                    className="absolute inset-0 h-full w-full object-cover"
-                    src={storyVideo}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    aria-hidden="true"
+            <picture className="absolute inset-0">
+                <source
+                    media="(min-width: 900px)"
+                    srcSet={storyImageLarge}
                 />
-            )}
 
-            <div className="absolute inset-0 bg-nav-bg/65" aria-hidden="true" />
+                <img
+                    src={storyImage}
+                    className="h-full w-full object-cover object-[50%_35%]"
+                />
+            </picture>
 
-            <Reveal className="relative mx-auto max-w-[620px] text-center">
-                <p className="mb-[34px] leading-[1.8] font-normal uppercase tracking-[.19em] text-xs">The Hysache story</p>
+            {/* Main burgundy treatment */}
+            <div
+                className="absolute inset-0 bg-nav-bg/35"
+                aria-hidden="true"
+            />
 
+            {/* Darker left side for text readability */}
+            <div
+                className="absolute inset-0 bg-gradient-to-r from-nav-bg/60 via-nav-bg/20 to-transparent"
+                aria-hidden="true"
+            />
+
+            {/* Slight bottom darkening */}
+            {/* <div
+                className="absolute inset-0 bg-gradient-to-t from-nav-bg/30 via-transparent to-nav-bg/15"
+                aria-hidden="true"
+            /> */}
+
+            <div className="relative z-10 w-full px-[9%] nav:px-[clamp(35px,7vw,120px)]">
+                <Reveal className="max-w-[620px] text-left">
+                    <p className="mb-8 text-xs font-normal uppercase leading-[1.8] tracking-[.19em] opacity-90">
+                        The Hysache story
+                    </p>
+
+                    <h2
+                        id="story-title"
+                        className="mb-8 text-[clamp(38px,5vw,64px)] font-light leading-[1.08] tracking-[-.045em]"
+                    >
+                        Couture.
+                        <br />
+                        <span className='md:whitespace-nowrap'>
+                            Defined by detail.
+                        </span>
+                    </h2>
+
+                    <p className="max-w-[540px] text-sm leading-[1.95] opacity-85">
+                        Hysache began with a simple idea: to create something thoughtful,
+                        distinctive, and quietly beautiful. Every detail is considered with
+                        care, shaped by a belief that the things we choose should feel as
+                        meaningful as they look.
+                    </p>
+                </Reveal>
+            </div>
+        </section>
+    )
+}
+
+function CollectionsSection() {
+    const section = useRef(null)
+    const grid = useRef(null)
+    const reduced = useReducedMotion()
+
+    function animateCardImage(event, scale) {
+        if (reduced) return
+        gsap.to(event.currentTarget.querySelector('img'), {
+            scale,
+            duration: 0.6,
+            ease: 'power4.out',
+            overwrite: 'auto',
+        })
+    }
+
+    useLayoutEffect(() => {
+        const context = gsap.context(() => {
+            const cards = gsap.utils.toArray('.collection-card')
+            const imageLayers = gsap.utils.toArray('.image-zoom-out')
+
+            if (reduced) {
+                gsap.set(cards, { clipPath: 'inset(0%)' })
+                gsap.set(imageLayers, { scale: 1 })
+                return
+            }
+
+            gsap.set(cards, { clipPath: 'inset(25%)' })
+            gsap.set(imageLayers, { scale: 1.3 })
+
+            const timeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: grid.current,
+                    start: 'top 90%',
+                    once: true,
+                },
+            })
+
+            timeline
+                .to(cards, {
+                    clipPath: 'inset(0%)',
+                    duration: 1.7,
+                    ease: 'power4.out',
+                    stagger: 0.1
+                }, 0)
+                .to(imageLayers, {
+                    scale: 1,
+                    duration: 1.7,
+                    ease: 'power4.out',
+                    stagger: 0.1
+                }, 0)
+        }, section)
+
+        return () => context.revert()
+    }, [reduced])
+
+    return (
+        <section
+            ref={section}
+            id="collections"
+            className="flex flex-col gap-10 px-[6%] py-24 sm:px-[7%] lg:flex-row lg:gap-16 lg:py-36"
+            aria-labelledby="collections-title"
+        >
+            <div className="w-full self-start lg:sticky lg:top-24 lg:basis-[30%] lg:shrink-0">
+                <p className={`mb-7 ${EYEBROW}`}>02 — Collections</p>
                 <h2
-                    id="story-title"
-                    className="mb-7 text-[clamp(30px,5vw,56px)] font-light leading-[1.3] tracking-[-.045em]"
+                    id="collections-title"
+                    className="mb-6 max-w-[420px] text-[clamp(34px,5vw,58px)] font-light leading-[1.12] tracking-[-.05em]"
                 >
-                    Couture. <br /> Meant to be remembered.
+                    Made to live beautifully.
                 </h2>
-
-                <p className="mx-auto text-sm leading-[1.95] opacity-90">
-                    Hysache began with a simple idea: to create something thoughtful,
-                    distinctive, and quietly beautiful. Every detail is considered with
-                    care, shaped by a belief that the things we choose should feel as
-                    meaningful as they look.
+                <p className="max-w-[360px] text-sm leading-[1.95] text-muted">
+                    Thoughtful shapes, tactile fabrics, and enduring details. Explore pieces designed to feel special in the moments you wear them most.
                 </p>
-            </Reveal>
+                <a className={`group mt-9 inline-flex items-center gap-6 py-2 ${SMALL_CAPS}`} href="#contact">
+                    View all
+                    <span className="text-xl font-light transition-transform group-hover:translate-x-[5px]" aria-hidden="true">→</span>
+                </a>
+            </div>
+
+            <div ref={grid} className="grid min-w-0 flex-1 grid-cols-8 gap-3 sm:gap-5">
+                {COLLECTIONS.map((collection, index) => {
+                    const span = index % 4 === 0 || index % 4 === 3 ? 'sm:col-span-5' : 'sm:col-span-3'
+
+                    return (
+                        <a
+                            key={collection.title}
+                            className={`collection-card group relative col-span-8 block h-[350px] w-full overflow-hidden sm:h-[450px] ${span}`}
+                            aria-label={`${collection.title}: ${collection.description}`}
+                            onMouseEnter={(event) => animateCardImage(event, 1.1)}
+                            onMouseLeave={(event) => animateCardImage(event, 1)}
+                            onFocus={(event) => animateCardImage(event, 1.1)}
+                            onBlur={(event) => animateCardImage(event, 1)}
+                        >
+                            <div className="image-zoom-out h-full w-full">
+                                <img
+                                    className="h-full w-full object-cover"
+                                    src={collection.image}
+                                    alt=""
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </div>
+                            <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent" aria-hidden="true" />
+                            <div className="absolute inset-x-0 bottom-0 translate-y-[calc(100%-4.5rem)] p-6 text-white transition-transform duration-[600ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-y-0 group-focus-visible:translate-y-0 sm:p-8">
+                                <h3 className="text-2xl font-light tracking-[-.035em]">{collection.title}</h3>
+                                <p className="mt-3 max-w-[320px] text-xs leading-relaxed text-white/85">{collection.description}</p>
+                            </div>
+                        </a>
+                    )
+                })}
+            </div>
         </section>
     )
 }
@@ -490,7 +655,7 @@ function Page() {
             gsap.fromTo(main.current,
                 { scaleX: 1 },
                 {
-                    scaleX: 0.93,
+                    scaleX: 0.95,
                     ease: 'none',
                     scrollTrigger: {
                         trigger: main.current,
@@ -511,10 +676,10 @@ function Page() {
             <Navbar />
             <main ref={main} id="main-content" className="page-content">
                 <Hero />
+                <CollectionsSection />
                 <StorySection />
-                {SECTIONS.map((section, index) => (
-                    <SplitSection key={section.id} number={String(index + 1).padStart(2, '0')} {...section} />
-                ))}
+                <SplitSection number="01" {...SECTIONS[0]} />
+                <SplitSection number="03" {...SECTIONS[1]} />
             </main>
             <Footer />
             <WhatsAppButton />
