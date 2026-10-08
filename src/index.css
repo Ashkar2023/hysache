@@ -2,6 +2,7 @@
 
 @theme {
     --font-sans: "Manrope", sans-serif;
+    /* Keep in sync with NAV_BREAKPOINT in config/layout.js. */
     --breakpoint-nav: 900px;
 
     --color-cream: #f7dddd;
@@ -36,6 +37,15 @@
 }
 
 @layer components {
+    .small-caps,
+    .eyebrow {
+        @apply text-[10px] font-normal uppercase tracking-[.19em];
+    }
+
+    .eyebrow {
+        @apply leading-[1.8];
+    }
+
     .brand-logo {
         transform: scale(1);
         transition: transform 0.3s;
