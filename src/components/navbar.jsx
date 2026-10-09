@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLenis } from 'lenis/react'
+import { useLocation } from 'react-router'
 import { NAV_BREAKPOINT } from '../config/layout.js'
 import { MAIN_NAVIGATION } from '../config/site.js'
 import useSiteNavigation from '../hooks/use-site-navigation.js'
@@ -8,6 +9,7 @@ import Logo from './logo.jsx'
 export default function Navbar() {
     const lenis = useLenis()
     const siteNavigate = useSiteNavigation()
+    const location = useLocation()
     const header = useRef(null)
     const toggle = useRef(null)
     const menu = useRef(null)
@@ -15,13 +17,15 @@ export default function Navbar() {
 
     useEffect(() => {
         const update = () => {
-            const opacity = Math.min(1, Math.max(0, window.scrollY / 120))
+            const opacity = location.pathname === '/'
+                ? Math.min(1, Math.max(0, window.scrollY / 120))
+                : 1
             header.current?.style.setProperty('--nav-opacity', opacity)
         }
         update()
         window.addEventListener('scroll', update, { passive: true })
         return () => window.removeEventListener('scroll', update)
-    }, [])
+    }, [location.pathname])
 
     useEffect(() => {
         if (!open) return

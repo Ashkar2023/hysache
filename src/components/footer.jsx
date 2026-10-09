@@ -1,4 +1,5 @@
 import { CONTACT_EMAIL, FOOTER_NAVIGATION, GOOGLE_MAPS_URL, WHATSAPP_URL } from '../config/site.js'
+import footerPattern from '../assets/images/footer-bg-pattern.png'
 import useSiteNavigation from '../hooks/use-site-navigation.js'
 import Logo from './logo.jsx'
 
@@ -9,8 +10,20 @@ export default function Footer() {
     const navigate = useSiteNavigation()
 
     return (
-        <footer id="contact" className="site-footer flex flex-col justify-end bg-footer-cream px-[7%] pb-6 text-nav-bg">
-            <div className="grid grid-cols-2 gap-x-8 gap-y-6 pb-9 nav:grid-cols-[1.65fr_.85fr_1fr_.85fr_.28fr] nav:gap-10 nav:pb-[54px]">
+        <footer id="contact" className="site-footer isolate flex flex-col justify-end overflow-hidden bg-footer-cream px-[7%] pb-6 text-nav-bg">
+            <div className="pointer-events-none absolute inset-x-0 bottom-[430px] top-0 z-0 nav:bottom-[285px]" aria-hidden="true">
+                <img
+                    src={footerPattern}
+                    alt=""
+                    className="h-full w-full object-cover object-center opacity-30 md:opacity-10"
+                    style={{
+                        maskImage: 'linear-gradient(to bottom, black 0%, black 25%, transparent 100%)',
+                        WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 25%, transparent 100%)',
+                    }}
+                />
+            </div>
+
+            <div className="relative z-10 grid grid-cols-2 gap-x-8 gap-y-6 pb-9 nav:grid-cols-[1.65fr_.85fr_1fr_.85fr_.28fr] nav:gap-10 nav:pb-[54px]">
                 <div className="col-span-full nav:col-auto">
                     <a href="/#home" className="group inline-flex items-center gap-4" aria-label="Hysache home" onClick={(event) => navigate(event, '/#home')}>
                         <Logo className="w-[42px] text-nav-bg transition-transform duration-300 group-hover:rotate-6 nav:w-[54px]" />
@@ -75,7 +88,7 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-3 border-t border-line pt-5 font-mono text-[9px] text-footer-muted nav:flex-row nav:items-center nav:justify-between nav:pt-6 nav:text-[10px]">
+            <div className="relative z-10 flex flex-col gap-3 border-t border-line pt-5 font-mono text-[9px] text-footer-muted nav:flex-row nav:items-center nav:justify-between nav:pt-6 nav:text-[10px]">
                 <span>© {COPYRIGHT_YEAR} Hysache</span>
                 <div className="flex flex-wrap gap-x-7 gap-y-3">
                     <span>Privacy Policy</span>

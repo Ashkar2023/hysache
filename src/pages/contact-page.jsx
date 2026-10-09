@@ -4,7 +4,7 @@ const FIELD_CLASS = 'w-full rounded-xs border border-cream/15 bg-black/10 px-4 p
 
 export default function ContactPage() {
     return (
-        <div className="relative isolate min-h-svh overflow-hidden bg-nav-bg px-[6%] pb-12 pt-24 text-cream nav:px-[8%] nav:pb-16 nav:pt-20">
+        <div className="relative isolate min-h-svh place-content-center overflow-hidden bg-nav-bg px-[6%] pb-12 pt-24 text-cream nav:px-[8%] nav:pb-16 nav:pt-20">
             <div
                 className="pointer-events-none absolute inset-0 -z-10 opacity-[.18]"
                 style={{
@@ -13,12 +13,12 @@ export default function ContactPage() {
                 }}
                 aria-hidden="true"
             />
-            <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_35%,transparent_0%,rgb(35_7_18/.24)_70%,rgb(35_7_18/.55)_100%)]" aria-hidden="true" />
+            {/* <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_35%,transparent_0%,rgb(35_7_18/.24)_70%,rgb(35_7_18/.55)_100%)]" aria-hidden="true" /> */}
 
             <section className="mx-auto max-w-[1180px]" aria-labelledby="contact-title">
                 <h1
                     id="contact-title"
-                    className="text-center text-[clamp(4.8rem,15.5vw,13.5rem)] font-light leading-[.88] tracking-[-.075em] text-nav-accent"
+                    className="text-center text-[clamp(2rem,15.5vw,10rem)] font-thin leading-[.88] text-nav-accent"
                 >
                     CONTACT<span className="text-[.28em]">.</span>
                 </h1>

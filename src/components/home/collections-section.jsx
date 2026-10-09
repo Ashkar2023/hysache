@@ -5,6 +5,7 @@ import collectionFour from '../../assets/images/collections/4.jpg'
 import collectionTwo from '../../assets/videos/3.mov'
 import collectionThree from '../../assets/videos/4.mov'
 import useReducedMotion from '../../hooks/use-reduced-motion.js'
+import useSiteNavigation from '../../hooks/use-site-navigation.js'
 import { gsap } from '../../lib/gsap.js'
 
 const COLLECTIONS = [
@@ -12,31 +13,32 @@ const COLLECTIONS = [
         image: collectionOne,
         title: 'The Day Edit',
         description: 'Easy silhouettes made for unhurried days.',
-        href: '/contact',
+        href: '/collections#the-day-edit',
     },
     {
         video: collectionTwo,
         title: 'Evening Light',
         description: 'Quiet detail, softened for after dark.',
-        href: '/contact',
+        href: '/collections#evening-light',
     },
     {
         video: collectionThree,
         title: 'In Bloom',
         description: 'Botanical notes in considered colour.',
-        href: '/contact',
+        href: '/collections#in-bloom',
     },
     {
         image: collectionFour,
         title: 'Foundations',
         description: 'Enduring pieces for an everyday wardrobe.',
-        href: '#contact',
+        href: '/collections#foundations',
     },
 ]
 
 export default function CollectionsSection() {
     const section = useRef(null)
     const reduced = useReducedMotion()
+    const navigate = useSiteNavigation()
 
     function animateCardImage(event, scale) {
         if (reduced) return
@@ -95,14 +97,14 @@ export default function CollectionsSection() {
                 <p className="eyebrow mb-7">02 — Collections</p>
                 <h2
                     id="collections-title"
-                    className="mb-6 max-w-[420px] text-[clamp(34px,5vw,58px)] font-light leading-[1.12] tracking-[-.05em]"
+                    className="mb-6 max-w-[420px] text-[clamp(34px,5vw,58px)] font-light leading-[1.12] tracking-[-.05em] text-nav-bg"
                 >
                     Made to live beautifully.
                 </h2>
                 <p className="max-w-[360px] text-sm leading-[1.95] text-muted">
                     Thoughtful shapes, tactile fabrics, and enduring details. Explore pieces designed to feel special in the moments you wear them most.
                 </p>
-                <a className="small-caps group mt-9 inline-flex items-center gap-6 py-2" href="/contact">
+                <a className="small-caps group mt-9 inline-flex items-center gap-6 py-2" href="/collections" onClick={(event) => navigate(event, '/collections')}>
                     View all
                     <span className="text-xl font-light transition-transform group-hover:translate-x-[5px]" aria-hidden="true">→</span>
                 </a>
@@ -115,8 +117,10 @@ export default function CollectionsSection() {
                     return (
                         <a
                             key={collection.title}
+                            href={collection.href}
                             className={`collection-card group relative col-span-8 block h-[350px] w-full overflow-hidden sm:h-[450px] ${span} rounded-xs`}
                             aria-label={`${collection.title}: ${collection.description}`}
+                            onClick={(event) => navigate(event, collection.href)}
                             onMouseEnter={(event) => animateCardImage(event, 1.1)}
                             onMouseLeave={(event) => animateCardImage(event, 1)}
                             onFocus={(event) => animateCardImage(event, 1.1)}

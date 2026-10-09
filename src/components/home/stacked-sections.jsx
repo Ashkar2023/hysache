@@ -111,7 +111,7 @@ function StackedPanel({ section, index, panelRef }) {
         <section
             ref={panelRef}
             id={id}
-            className="stacked-panel flex items-center justify-center overflow-hidden bg-ink text-white"
+            className="stacked-panel flex items-center justify-center overflow-hidden bg-ink text-white rounded-xs"
             style={{
                 '--stack-top': `${HEADER_OFFSET + 12 + index * 14}px`,
                 '--stack-top-mobile': `${HEADER_OFFSET + 4 + index * 8}px`,
@@ -188,7 +188,7 @@ export default function StackedSections() {
                                 trigger: incoming,
                                 start: isMobile ? 'top 96%' : 'top 92%',
                                 end: () => `top ${topBase + incomingIndex * topStep}px`,
-                                scrub: 0.6,
+                                scrub: 1.5,
                                 invalidateOnRefresh: true,
                             },
                         },

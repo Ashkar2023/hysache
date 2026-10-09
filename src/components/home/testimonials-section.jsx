@@ -79,7 +79,7 @@ export default function TestimonialsSection() {
                     end: () => `+=${cards.length * Math.max(window.innerHeight * 0.55, 420)}`,
                     pin: true,
                     anticipatePin: 1,
-                    scrub: 0.,
+                    scrub: 1.3,
                     invalidateOnRefresh: true,
                 },
             })
