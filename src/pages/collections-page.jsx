@@ -139,7 +139,7 @@ export default function CollectionsPage() {
 
     return (
         <div className="bg-cream shadow-xs shadow-nav-bg border-zinc-300 bg-linear-to-b from-transparent via-transparent via-80% to-nav-bg/15">
-            <section className="flex min-h-[clamp(300px,58svh,380px)] items-end border-b border-line px-[5%] pb-12 pt-32 sm:px-[7%] sm:pb-16" aria-labelledby="magazine-title">
+            <section className="flex min-h-[clamp(300px,58svh,380px)] items-end px-[5%] pb-12 pt-32 sm:px-[7%] sm:pb-16" aria-labelledby="magazine-title">
                 <div className="mx-auto w-full max-w-[1600px]">
                     <p className="eyebrow mb-6 text-faint text-center">The complete collection</p>
                     <div className="flex flex-col items-center">
@@ -148,6 +148,9 @@ export default function CollectionsPage() {
                         </h1>
                         <p className="mx-auto w-full md:w-1/3 text-center text-sm leading-[1.9] text-muted md:pb-1">
                             A living edit of thoughtful silhouettes, tactile fabrics, and pieces made to move through everyday rituals. Explore the complete Hysache wardrobe, gathered in one place.
+                        </p>
+                        <p className="small-caps mt-6 text-center text-faint">
+                            [Select any image for a closer look]
                         </p>
                     </div>
                 </div>
@@ -162,7 +165,7 @@ export default function CollectionsPage() {
                     <CollectionStory key={activeCollection.id} collection={activeCollection} index={activeIndex} compact />
                 </div>
 
-                <div className="min-w-0">
+                <div className="min-w-0 md:mt-0 -mt-20">
                     {CATALOG_COLLECTIONS.map((collection, collectionIndex) => (
                         <section
                             key={collection.id}

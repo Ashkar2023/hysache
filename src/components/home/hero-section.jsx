@@ -1,11 +1,13 @@
 import { useLayoutEffect, useRef } from 'react'
 import heroImage from '../../assets/images/1.png'
+import useNavigationAnimationDelay from '../../hooks/use-navigation-animation-delay.jsx'
 import useReducedMotion from '../../hooks/use-reduced-motion.js'
 import { gsap, SplitText } from '../../lib/gsap.js'
 
 export default function HeroSection() {
     const title = useRef(null)
     const reduced = useReducedMotion()
+    const navigationAnimationDelay = useNavigationAnimationDelay()
 
     useLayoutEffect(() => {
         if (reduced) return
@@ -23,7 +25,7 @@ export default function HeroSection() {
                 yPercent: 20,
                 autoAlpha: 0,
                 duration: 0.45,
-                delay: .35,
+                delay: .35 + navigationAnimationDelay / 1000,
                 stagger: 0.06,
                 ease: 'power3.out',
                 clearProps: 'transform,opacity,visibility',
@@ -31,7 +33,7 @@ export default function HeroSection() {
         }, title)
 
         return () => context.revert()
-    }, [reduced])
+    }, [navigationAnimationDelay, reduced])
 
     return (
         <section id="home" className="relative h-svh" aria-label="Hysache — thoughtfully made kurtis">

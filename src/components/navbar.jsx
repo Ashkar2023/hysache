@@ -3,12 +3,14 @@ import { useLenis } from 'lenis/react'
 import { useLocation } from 'react-router'
 import { NAV_BREAKPOINT } from '../config/layout.js'
 import { MAIN_NAVIGATION } from '../config/site.js'
+import useNavigationAnimationDelay from '../hooks/use-navigation-animation-delay.jsx'
 import useSiteNavigation from '../hooks/use-site-navigation.js'
 import Logo from './logo.jsx'
 
 export default function Navbar() {
     const lenis = useLenis()
     const siteNavigate = useSiteNavigation()
+    const navigationAnimationDelay = useNavigationAnimationDelay()
     const location = useLocation()
     const header = useRef(null)
     const toggle = useRef(null)
@@ -70,13 +72,17 @@ export default function Navbar() {
                 ref={header}
                 className={`fixed inset-x-0 top-0 z-50 grid h-20 grid-cols-[1fr_auto_1fr] items-center bg-[rgb(111_29_51/var(--nav-opacity))] px-6 text-nav-accent [--nav-opacity:0] nav:px-[3.5%] ${open ? 'max-nav:bg-nav-bg' : ''}`}
             >
-                <nav className="hidden gap-[clamp(16px,2vw,34px)] nav:flex" aria-label="Main navigation">
+                <nav
+                    className="hidden gap-[clamp(16px,2vw,34px)] nav:flex"
+                    key={location.pathname}
+                    aria-label="Main navigation"
+                >
                     {MAIN_NAVIGATION.map(([label, href], index) => (
                         <a
                             key={href}
                             href={href}
                             className="desktop-nav-item nav-link-roll small-caps py-3"
-                            style={{ '--nav-item-delay': `${120 + index * 80}ms` }}
+                            style={{ '--nav-item-delay': `${120 + navigationAnimationDelay + index * 80}ms` }}
                             onClick={(event) => navigate(event, href)}
                         >
                             <span className="nav-link-roll-text">

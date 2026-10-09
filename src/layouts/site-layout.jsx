@@ -4,6 +4,7 @@ import { Outlet, useLocation } from 'react-router'
 import Footer from '../components/footer.jsx'
 import Navbar from '../components/navbar.jsx'
 import WhatsAppButton from '../components/whatsapp-button.jsx'
+import { NavigationAnimationDelayProvider } from '../hooks/use-navigation-animation-delay.jsx'
 import useReducedMotion from '../hooks/use-reduced-motion.js'
 import { gsap, ScrollTrigger } from '../lib/gsap.js'
 import { scrollToHash, scrollToTop } from '../lib/scroll.js'
@@ -16,16 +17,12 @@ function SiteShell() {
     const main = useRef(null)
     const reduced = useReducedMotion()
 
-    useEffect(() => {
-        const frame = window.requestAnimationFrame(() => {
-            if (location.hash) {
-                scrollToHash(location.hash, lenis)
-            } else {
-                scrollToTop(lenis)
-            }
-        })
-
-        return () => window.cancelAnimationFrame(frame)
+    useLayoutEffect(() => {
+        if (location.hash) {
+            scrollToHash(location.hash, lenis)
+        } else {
+            scrollToTop(lenis)
+        }
     }, [lenis, location.hash, location.pathname])
 
     useLayoutEffect(() => {
@@ -61,6 +58,7 @@ function SiteShell() {
         return () => {
             window.cancelAnimationFrame(frame)
             context.revert()
+            gsap.set(main.current, { clearProps: 'transform,willChange' })
         }
     }, [location.pathname, reduced])
 
@@ -101,12 +99,20 @@ export default function SiteLayout() {
         }
     }, [reduced])
 
-    if (reduced) return <SiteShell />
+    if (reduced) {
+        return (
+            <NavigationAnimationDelayProvider>
+                <SiteShell />
+            </NavigationAnimationDelayProvider>
+        )
+    }
 
     return (
-        <ReactLenis root ref={lenisRef} options={LENIS_OPTIONS}>
-            <LenisSync />
-            <SiteShell />
-        </ReactLenis>
+        <NavigationAnimationDelayProvider>
+            <ReactLenis root ref={lenisRef} options={LENIS_OPTIONS}>
+                <LenisSync />
+                <SiteShell />
+            </ReactLenis>
+        </NavigationAnimationDelayProvider>
     )
 }

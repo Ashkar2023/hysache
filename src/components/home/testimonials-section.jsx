@@ -78,9 +78,12 @@ export default function TestimonialsSection() {
                     start: 'top top',
                     end: () => `+=${cards.length * Math.max(window.innerHeight * 0.55, 420)}`,
                     pin: true,
+                    pinSpacing: true,
                     anticipatePin: 1,
-                    scrub: 1.3,
+                    scrub: 0.18,
                     invalidateOnRefresh: true,
+                    onLeave: (self) => self.animation.progress(1),
+                    onLeaveBack: (self) => self.animation.progress(0),
                 },
             })
 
@@ -194,7 +197,9 @@ export default function TestimonialsSection() {
                                 className={`${reduced ? 'min-h-[300px] w-full nav:min-h-[330px]' : 'absolute inset-0 h-full w-full will-change-[transform,opacity,clip-path] shadow-[0_18px_55px_rgba(111,29,51,0.16)]'} flex flex-col rounded-xs border border-nav-bg/15 p-7 nav:p-10 ${index % 2 === 0 ? 'bg-footer-cream' : 'bg-nav-bg text-cream'}`}
                             >
                                 <blockquote className="my-auto line-clamp-4 py-8 text-[clamp(14px,1.1vw,17px)] font-light leading-[1.55] tracking-[-.02em]">
-                                    <span>“</span>{testimonial.quote}”
+                                    <span className="relative top-[.12em] text-[2em] font-bold leading-0">“</span>
+                                    {testimonial.quote}
+                                    <span className="relative top-[.12em] text-[2em] font-bold leading-0">”</span>
                                 </blockquote>
 
                                 <footer className={`flex items-center justify-between gap-5 border-t pt-5 ${index % 2 === 0 ? 'border-nav-bg/15' : 'border-cream/20'}`}>

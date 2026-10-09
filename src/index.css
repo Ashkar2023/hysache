@@ -191,7 +191,57 @@
     }
 }
 
+/* Route changes use the browser's View Transitions API. The new page reveals
+   upward while the outgoing page recedes underneath it. */
+::view-transition-image-pair(root) {
+    isolation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 800ms;
+    animation-timing-function: cubic-bezier(0.472, 0.094, 0.322, 0.962);
+    animation-fill-mode: both;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+    z-index: 1;
+    transform-origin: center center;
+    animation-name: page-recede;
+}
+
+::view-transition-new(root) {
+    z-index: 2;
+    animation-name: page-reveal;
+}
+
+@keyframes page-recede {
+    to {
+        transform: scale(.90);
+        filter: grayscale(40%);
+        opacity: .2;
+    }
+}
+
+@keyframes page-reveal {
+    from {
+        clip-path: inset(100% 0 0 0);
+        transform: translateY(10vh);
+    }
+
+    to {
+        clip-path: inset(0 0 0 0);
+        transform: translateY(0);
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
+
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation: none;
+    }
 
     *,
     ::before,

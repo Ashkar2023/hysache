@@ -12,17 +12,17 @@ export default function useSiteNavigation() {
 
         event.preventDefault()
 
-        const isHomeHash = target.startsWith('/#')
+        const targetUrl = new URL(target, window.location.href)
+        const isSameRoute = targetUrl.pathname === location.pathname
 
-        if (isHomeHash && location.pathname === '/') {
-            const hash = target.slice(1)
-            if (!scrollToHash(hash, lenis)) return
+        if (isSameRoute) {
+            if (!targetUrl.hash) return
+            if (!scrollToHash(targetUrl.hash, lenis)) return
 
             window.history.replaceState(null, '', target)
             return
         }
 
-        routerNavigate(target)
+        routerNavigate(target, { viewTransition: true })
     }
 }
-
