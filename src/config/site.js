@@ -5,18 +5,17 @@ export const GOOGLE_MAPS_URL = 'https://www.google.com/maps/place/Hysache/@10.04
 
 export const MAIN_NAVIGATION = [    
     ['collection', '/collections'],
-    ['craft', ''],
-    ['story', ''],
-    ['gallery', ''],
+    ['craft', '/craft'],
+    ['story', '/story'],
+    ['gallery', '/gallery'],
     ['contact', '/contact'],
 ]
 
 export const FOOTER_NAVIGATION = {
     explore: [
-        ['Home', '/#home'],
-        ['Our story', '/#story'],
-        ['Our craft', '/#craft'],
-        ['Our store', '/#store'],
+        ['Home', '/'],
+        ['story', '/story'],
+        ['craft', '/craft']
     ],
     collections: [
         ['The Day Edit', '/collections#the-day-edit'],
