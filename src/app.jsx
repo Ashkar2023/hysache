@@ -8,6 +8,7 @@ import SiteLayout from './layouts/site-layout.jsx'
 import { gsap, ScrollTrigger } from './lib/gsap.js'
 import CollectionsPage from './pages/collections-page.jsx'
 import ContactPage from './pages/contact-page.jsx'
+import GalleryPage from './pages/gallery-page.jsx'
 import HomePage from './pages/home-page.jsx'
 import NotFoundPage from './pages/404.jsx'
 
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
                     {
                         path: 'collections',
                         element: <CollectionsPage />,
+                    },
+                    {
+                        path: 'gallery',
+                        element: <GalleryPage />,
                     },
                     {
                         path: '*',
