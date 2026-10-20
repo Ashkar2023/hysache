@@ -4,6 +4,8 @@ import useNavigationAnimationDelay from '../../hooks/use-navigation-animation-de
 import useReducedMotion from '../../hooks/use-reduced-motion.js'
 import { gsap, SplitText } from '../../lib/gsap.js'
 
+const TAGLINE = 'Homegrown Luxe'
+
 export default function HeroSection() {
     const title = useRef(null)
     const reduced = useReducedMotion()
@@ -48,15 +50,19 @@ export default function HeroSection() {
             <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 select-none">
                 <p
                     ref={title}
-                    className="whitespace-nowrap font-light leading-none text-[#f29494] text-[clamp(4.5rem,15vw,12.5rem)] md:text-shadow-none text-shadow-lg"
+                    className="whitespace-nowrap font-normal leading-none text-[#f29494] text-[clamp(4.5rem,15vw,12.5rem)] md:text-shadow-xs text-shadow-lg"
                 >
                     HYSACHE
                 </p>
                 <span
                     aria-hidden="true"
-                    className="absolute uppercase right-1 bottom-0 leading-2 whitespace-nowrap text-[clamp(.3rem,.8vw,2rem)] font-light tracking-[.38em] text-[#f29494]"
+                    className="mt-1 nav:mt-0 flex w-full justify-between whitespace-nowrap text-[clamp(1rem,1vw,2rem)] text-shadow-md py-2 nav:py-0 font-light uppercase leading-none nav:tracking-[0.4em] text-nav-accent nav:justify-end"
                 >
-                    Homegrown Luxe
+                    {Array.from(TAGLINE).map((character, index) => (
+                        <span key={`${character}-${index}`}>
+                            {character === ' ' ? '\u00a0' : character}
+                        </span>
+                    ))}
                 </span>
             </div>
         </section>

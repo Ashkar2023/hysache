@@ -143,8 +143,9 @@ export default function CollectionsPage() {
                 <div className="mx-auto w-full max-w-[1600px]">
                     <p className="eyebrow mb-6 text-faint text-center">The complete collection</p>
                     <div className="flex flex-col items-center">
-                        <h1 id="magazine-title" className="uppercase text-[clamp(3.2rem,10vw,9rem)] text-center font-thin leading-[.90] tracking-tight pb-4 text-nav-bg">
-                            Hysache Magazine
+                        <h1 id="magazine-title" className="w-full max-w-[1400px] pb-4 text-[clamp(4.7rem,17vw,15rem)] font-thin uppercase leading-[.72] tracking-[-.065em] text-nav-bg">
+                            <span className="block overflow-hidden pb-[.1em]"><span className="block">Hysache</span></span>
+                            <span className="block overflow-hidden pb-[.1em]"><span className="ml-[12vw] block nav:ml-[23vw]">Magazine</span></span>
                         </h1>
                         <p className="mx-auto w-full md:w-1/3 text-center text-sm leading-[1.9] text-muted md:pb-1">
                             A living edit of thoughtful silhouettes, tactile fabrics, and pieces made to move through everyday rituals. Explore the complete Hysache wardrobe, gathered in one place.

@@ -1,13 +1,13 @@
 import editorialOne from '../assets/images/1.png'
 import editorialTwo from '../assets/images/2.jpg'
 import editorialThree from '../assets/images/3.png'
-import collectionOne from '../assets/images/collections/1.jpg'
-import collectionTwo from '../assets/images/collections/2.jpg'
-import collectionThree from '../assets/images/collections/3.jpg'
-import collectionFour from '../assets/images/collections/4.jpg'
-import collectionFive from '../assets/images/collections/5.jpeg'
-import collectionSix from '../assets/images/collections/6.jpg'
-import collectionSeven from '../assets/images/collections/rotated-1.jpg'
+import collectionOne from '../assets/images/collections/1.webp'
+import collectionTwo from '../assets/images/collections/2.webp'
+import collectionThree from '../assets/images/collections/3.webp'
+import collectionFour from '../assets/images/collections/4.webp'
+import collectionFive from '../assets/images/collections/5.webp'
+import collectionSix from '../assets/images/collections/6.webp'
+import collectionSeven from '../assets/images/collections/rotated-1.webp'
 
 export const CATALOG_COLLECTIONS = [
     {

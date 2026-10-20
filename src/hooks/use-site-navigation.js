@@ -8,9 +8,9 @@ export default function useSiteNavigation() {
     const routerNavigate = useNavigate()
 
     return function navigate(event, target) {
-        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+        if (event && (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)) return
 
-        event.preventDefault()
+        event?.preventDefault()
 
         const targetUrl = new URL(target, window.location.href)
         const isSameRoute = targetUrl.pathname === location.pathname

@@ -2,6 +2,18 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Zoom from 'react-medium-image-zoom'
 import { gsap, ScrollTrigger, SplitText } from '../lib/gsap.js'
 import useNavigationAnimationDelay from '../hooks/use-navigation-animation-delay.jsx'
+import galleryOne from '../assets/images/gallery/1.webp'
+import galleryTwo from '../assets/images/gallery/2.webp'
+import galleryThree from '../assets/images/gallery/3.webp'
+import galleryFour from '../assets/images/gallery/4.webp'
+import galleryFive from '../assets/images/gallery/5.webp'
+import gallerySix from '../assets/images/gallery/6.webp'
+import gallerySeven from '../assets/images/gallery/7.webp'
+import galleryEight from '../assets/images/gallery/8.webp'
+import galleryNine from '../assets/images/gallery/9.webp'
+import galleryTen from '../assets/images/gallery/10.webp'
+import galleryEleven from '../assets/images/gallery/11.webp'
+import galleryTwelve from '../assets/images/gallery/12.webp'
 
 const GALLERY_COPY = [
     'Between fittings and final frames, there are quieter moments that shape the work: a sleeve being pinned, a hem finding its line, and morning light moving slowly across the studio floor.',
@@ -11,79 +23,64 @@ const GALLERY_COPY = [
 
 const GALLERY_IMAGES = [
     {
-        src: '/src/assets/images/1.png',
+        src: galleryOne,
         alt: 'Gallery study one',
-        className: 'col-span-4 col-start-1 row-start-1 aspect-[32/41] nav:col-span-2 nav:col-start-1',
+        className: 'relative col-span-4 col-start-2 row-start-1 aspect-[3/4] nav:top-0 nav:col-span-2 nav:col-start-1',
     },
     {
-        src: 'https://placehold.co/760x560',
+        src: galleryTwo,
         alt: 'Gallery study two',
-        className: 'col-span-5 col-start-8 row-start-1 aspect-[19/14] nav:col-span-3 nav:col-start-4',
+        className: 'relative top-12 col-span-5 col-start-7 row-start-1 aspect-[3/4] nav:top-20 nav:col-span-3 nav:col-start-4',
     },
     {
-        src: 'https://placehold.co/580x760',
+        src: galleryThree,
         alt: 'Gallery study three',
-        className: 'col-span-4 col-start-2 row-start-2 aspect-[29/38] nav:col-span-2 nav:col-start-10 nav:row-start-1',
+        className: 'relative col-span-5 col-start-1 row-start-2 aspect-[3/4] nav:top-8 nav:col-span-2 nav:col-start-10 nav:row-start-1',
     },
     {
-        src: 'https://placehold.co/820x620',
+        src: galleryFour,
         alt: 'Gallery study four',
-        className: 'col-span-4 col-start-9 row-start-2 aspect-[41/31] nav:col-span-2 nav:col-start-2 nav:row-start-2',
+        className: 'relative top-12 col-span-4 col-start-8 row-start-2 aspect-[3/4] nav:top-0 nav:col-span-3 nav:col-start-2 nav:row-start-2',
     },
     {
-        src: 'https://placehold.co/620x880',
+        src: galleryFive,
         alt: 'Gallery study five',
-        className: 'col-span-3 col-start-1 row-start-3 aspect-[31/44] nav:col-span-2 nav:col-start-6 nav:row-start-2',
+        className: 'relative col-span-4 col-start-2 row-start-3 aspect-[3/4] nav:top-24 nav:col-span-2 nav:col-start-7 nav:row-start-2',
     },
     {
-        src: 'https://placehold.co/780x600',
+        src: gallerySix,
         alt: 'Gallery study six',
-        className: 'col-span-4 col-start-8 row-start-3 aspect-[13/10] nav:col-span-2 nav:col-start-11 nav:row-start-2',
+        className: 'relative top-12 col-span-5 col-start-7 row-start-3 aspect-[3/4] nav:top-8 nav:col-span-2 nav:col-start-11 nav:row-start-2',
     },
     {
-        src: 'https://placehold.co/600x840',
+        src: gallerySeven,
         alt: 'Gallery study seven',
-        className: 'col-span-5 col-start-2 row-start-4 aspect-[5/7] nav:col-span-3 nav:col-start-2 nav:row-start-3',
+        className: 'relative col-span-5 col-start-1 row-start-4 aspect-[3/4] nav:top-12 nav:col-span-2 nav:col-start-1 nav:row-start-3',
     },
     {
-        src: 'https://placehold.co/860x620',
+        src: galleryEight,
         alt: 'Gallery study eight',
-        className: 'col-span-4 col-start-9 row-start-4 aspect-[43/31] nav:col-span-2 nav:col-start-9 nav:row-start-3',
+        className: 'relative top-12 col-span-4 col-start-8 row-start-4 aspect-[3/4] nav:top-0 nav:col-span-3 nav:col-start-4 nav:row-start-3',
     },
     {
-        src: 'https://placehold.co/650x900',
+        src: galleryNine,
         alt: 'Gallery study nine',
-        className: 'col-span-4 col-start-1 row-start-5 aspect-[13/18] nav:col-span-2 nav:col-start-3 nav:row-start-4',
+        className: 'relative col-span-4 col-start-2 row-start-5 aspect-[3/4] nav:top-20 nav:col-span-2 nav:col-start-10 nav:row-start-3',
     },
     {
-        src: 'https://placehold.co/900x640',
+        src: galleryTen,
         alt: 'Gallery study ten',
-        className: 'col-span-5 col-start-7 row-start-5 aspect-[45/32] nav:col-span-3 nav:col-start-6 nav:row-start-4',
+        className: 'relative top-12 col-span-5 col-start-7 row-start-5 aspect-[3/4] nav:top-16 nav:col-span-3 nav:col-start-2 nav:row-start-4',
     },
     {
-        src: 'https://placehold.co/610x830',
+        src: galleryEleven,
         alt: 'Gallery study eleven',
-        className: 'col-span-4 col-start-2 row-start-6 aspect-[61/83] nav:col-span-2 nav:col-start-11 nav:row-start-4',
+        className: 'relative col-span-5 col-start-1 row-start-6 aspect-[3/4] nav:top-0 nav:col-span-2 nav:col-start-7 nav:row-start-4',
     },
     {
-        src: 'https://placehold.co/840x590',
+        src: galleryTwelve,
         alt: 'Gallery study twelve',
-        className: 'col-span-4 col-start-9 row-start-6 aspect-[84/59] nav:col-span-3 nav:col-start-1 nav:row-start-5',
-    },
-    {
-        src: 'https://placehold.co/620x860',
-        alt: 'Gallery study thirteen',
-        className: 'col-span-4 col-start-1 row-start-7 aspect-[31/43] nav:col-span-2 nav:col-start-5 nav:row-start-5',
-    },
-    {
-        src: 'https://placehold.co/880x620',
-        alt: 'Gallery study fourteen',
-        className: 'col-span-5 col-start-7 row-start-7 aspect-[44/31] nav:col-span-3 nav:col-start-9 nav:row-start-5',
-    },
-    {
-        src: 'https://placehold.co/600x800',
-        alt: 'Gallery study fifteen',
-        className: 'col-span-4 col-start-5 row-start-8 aspect-[3/4] nav:col-span-2 nav:col-start-4 nav:row-start-6',
+        className: 'relative top-12 col-span-4 col-start-8 row-start-6 aspect-[3/4] nav:top-20 nav:col-span-2 nav:col-start-11 nav:row-start-4',
     },
 ]
 
@@ -211,9 +208,12 @@ export default function GalleryPage() {
                 id="gallery-title"
                 className="px-[6%] pt-32 text-center text-[clamp(3.2rem,10vw,9rem)] font-thin leading-[.88] text-nav-accent nav:px-[8%] uppercase"
             >
-                Behind the<br />scenes
+                <span className="inline-block text-left">
+                    <span className="block">Behind</span>
+                    <span className="ml-[12vw] block nav:ml-[23vw]">the scenes</span>
+                </span>
             </h1>
-            <div className="relative z-0 mt-32 grid w-full grid-cols-12 items-start gap-x-3 gap-y-[clamp(8rem,18vh,14rem)] px-3 min-[480px]:gap-x-4 min-[480px]:px-5 nav:gap-x-6 nav:px-[4%]">
+            <div className="relative z-1 opacity-80 mt-32 grid w-full grid-cols-12 items-start gap-x-3 gap-y-[clamp(8rem,18vh,14rem)] px-3 min-[480px]:gap-x-4 min-[480px]:px-5 nav:gap-x-6 nav:px-[4%]">
                 {GALLERY_IMAGES.map((image) => (
                     <figure
                         key={image.src}
@@ -236,7 +236,7 @@ export default function GalleryPage() {
                 ))}
             </div>
 
-            <div className="gallery-copy-container pointer-events-none absolute inset-x-0 top-0 z-20 pt-[30vh] sm:pt-[35vh] md:pt-[40vh] nav:pt-[50vh]">
+            <div className="gallery-copy-container pointer-events-none absolute inset-x-0 top-0 pt-[30vh] sm:pt-[35vh] md:pt-[40vh] nav:pt-[50vh]">
                 <div className="flex h-svh items-center justify-center px-[6%] nav:px-[8%]">
                     <div
                         ref={copy}

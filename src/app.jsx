@@ -8,9 +8,11 @@ import SiteLayout from './layouts/site-layout.jsx'
 import { gsap, ScrollTrigger } from './lib/gsap.js'
 import CollectionsPage from './pages/collections-page.jsx'
 import ContactPage from './pages/contact-page.jsx'
+import CraftPage from './pages/craft-page.jsx'
 import GalleryPage from './pages/gallery-page.jsx'
 import HomePage from './pages/home-page.jsx'
 import NotFoundPage from './pages/404.jsx'
+import StoryPage from './pages/story-page.jsx'
 
 const LENIS_OPTIONS = { lerp: 0.08, wheelMultiplier: 0.9, touchMultiplier: 0.9, autoRaf: false }
 
@@ -78,8 +80,16 @@ const router = createBrowserRouter([
                         element: <CollectionsPage />,
                     },
                     {
+                        path: 'craft',
+                        element: <CraftPage />,
+                    },
+                    {
                         path: 'gallery',
                         element: <GalleryPage />,
+                    },
+                    {
+                        path: 'story',
+                        element: <StoryPage />,
                     },
                     {
                         path: '*',

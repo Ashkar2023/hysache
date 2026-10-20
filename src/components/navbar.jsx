@@ -2,10 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 import { useLenis } from 'lenis/react'
 import { useLocation } from 'react-router'
 import { NAV_BREAKPOINT } from '../config/layout.js'
-import { MAIN_NAVIGATION } from '../config/site.js'
+import { CONTACT_EMAIL, GOOGLE_MAPS_URL, INSTAGRAM_URL, MAIN_NAVIGATION, WHATSAPP_URL } from '../config/site.js'
 import useNavigationAnimationDelay from '../hooks/use-navigation-animation-delay.jsx'
 import useSiteNavigation from '../hooks/use-site-navigation.js'
 import Logo from './logo.jsx'
+
+// the duration of the navbar menu close seems to end faster cause of the cubic bezier. so keep this slightly earlier. it feels smooth
+const MOBILE_MENU_TRANSITION_MS = 400
 
 export default function Navbar() {
     const lenis = useLenis()
@@ -15,7 +18,10 @@ export default function Navbar() {
     const header = useRef(null)
     const toggle = useRef(null)
     const menu = useRef(null)
+    const navigationTimer = useRef(null)
     const [open, setOpen] = useState(false)
+
+    useEffect(() => () => window.clearTimeout(navigationTimer.current), [])
 
     useEffect(() => {
         const update = () => {
@@ -64,6 +70,27 @@ export default function Navbar() {
         siteNavigate(event, target)
     }
 
+    function navigateAfterMenuClose(event, target) {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+
+        event.preventDefault()
+        setOpen(false)
+        window.clearTimeout(navigationTimer.current)
+        navigationTimer.current = window.setTimeout(() => {
+            lenis?.start()
+            siteNavigate(null, target)
+            navigationTimer.current = null
+        }, MOBILE_MENU_TRANSITION_MS)
+    }
+
+    function toggleMenu() {
+        if (!open) {
+            window.clearTimeout(navigationTimer.current)
+            navigationTimer.current = null
+        }
+        setOpen(!open)
+    }
+
     const barLine = 'block h-px w-6 bg-current transition-transform'
 
     return (
@@ -95,11 +122,11 @@ export default function Navbar() {
 
                 <button
                     ref={toggle}
-                    className="col-start-1 row-start-1 flex h-11 w-[38px] cursor-pointer flex-col justify-center gap-1.5 text-inherit nav:hidden"
+                    className="col-start-3 row-start-1 flex h-11 w-[38px] cursor-pointer flex-col items-end justify-center justify-self-end gap-1.5 text-inherit nav:hidden"
                     aria-label={open ? 'Close menu' : 'Open menu'}
                     aria-expanded={open}
                     aria-controls="mobile-menu"
-                    onClick={() => setOpen(!open)}
+                    onClick={toggleMenu}
                 >
                     <span className={`${barLine} ${open ? 'translate-y-[3.5px] rotate-45' : ''}`} />
                     <span className={`${barLine} ${open ? '-translate-y-[3.5px] -rotate-45' : ''}`} />
@@ -116,32 +143,61 @@ export default function Navbar() {
                 </a>
             </header>
 
-            {open && (
-                <div
-                    id="mobile-menu"
-                    ref={menu}
-                    className="fixed inset-0 z-40 flex flex-col justify-center bg-nav-bg px-[8%] pb-10 pt-[120px] text-nav-accent nav:hidden"
-                    role="dialog"
-                    aria-modal="true"
-                    aria-label="Navigation menu"
-                >
-                    <nav className="flex flex-col gap-6" aria-label="Mobile navigation">
-                        {MAIN_NAVIGATION.map(([label, href], index) => (
-                            <a
-                                key={href}
-                                href={href}
-                                className="flex items-baseline gap-5 text-[clamp(28px,7vw,48px)] font-light"
-                                onClick={(event) => navigate(event, href)}
-                            >
-                                <span className="text-[9px] tracking-[.15em]">0{index + 1}</span>
-                                {label}
-                                <span className="ml-auto text-2xl">↗</span>
-                            </a>
-                        ))}
-                    </nav>
-                    <p className="eyebrow mt-16">A quieter kind of beautiful.</p>
+            <div
+                id="mobile-menu"
+                ref={menu}
+                className={`fixed inset-x-0 top-0 z-40 flex h-[80svh] flex-col justify-between bg-nav-bg px-[8%] pb-10 pt-[120px] text-nav-accent transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] nav:hidden ${open ? 'translate-y-0' : '-translate-y-full pointer-events-none'}`}
+                role="dialog"
+                aria-modal={open ? 'true' : undefined}
+                aria-hidden={!open}
+                aria-label="Navigation menu"
+                inert={open ? undefined : ''}
+            >
+                <nav className="flex flex-col gap-5" aria-label="Mobile navigation">
+                    {MAIN_NAVIGATION.map(([label, href]) => (
+                        <a
+                            key={href}
+                            href={href}
+                            className="flex items-center text-[clamp(28px,7vw,48px)] font-light"
+                            onClick={(event) => navigateAfterMenuClose(event, href)}
+                        >
+                            {label}
+                            <span className="ml-auto text-2xl">↗</span>
+                        </a>
+                    ))}
+                </nav>
+
+                <div>
+                    <p className="eyebrow mb-6">Homegrown luxe.</p>
+                    <div className="flex items-center justify-start gap-6">
+                        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="transition-colors duration-300 hover:text-cream" aria-label="Message Hysache on WhatsApp">
+                            <svg className="size-[21px]" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M20 11.6a8 8 0 0 1-12 6.94L4 19.6l1.14-3.88A8 8 0 1 1 20 11.6Z" stroke="currentColor" strokeWidth="1.5" />
+                                <path d="M9.33 7.4c-.38-.38-1.14 0-1.3.76-.45 2.66 3.8 6.84 6.46 7.22.76-.15 1.14-.91.76-1.3l-1.52-1.14c-.38-.22-.76.61-1.14.54-.99-.31-2.05-1.37-2.36-2.36-.07-.38.76-.76.54-1.14L9.33 7.4Z" fill="currentColor" />
+                            </svg>
+                        </a>
+                        <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="transition-colors duration-300 hover:text-cream" aria-label="Follow Hysache on Instagram">
+                            <svg className="size-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.5" />
+                                <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.5" />
+                                <circle cx="17.4" cy="6.6" r="1" fill="currentColor" />
+                            </svg>
+                        </a>
+                        <a href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer" className="transition-colors duration-300 hover:text-cream" aria-label="Find Hysache on Google Maps">
+                            <svg className="size-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" stroke="currentColor" strokeWidth="1.5" />
+                                <circle cx="12" cy="10" r="2.25" stroke="currentColor" strokeWidth="1.5" />
+                            </svg>
+                        </a>
+                        <a href={`mailto:${CONTACT_EMAIL}`} className="transition-colors duration-300 hover:text-cream" aria-label="Email Hysache">
+                            <svg className="size-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <rect x="2.75" y="5" width="18.5" height="14" rx="1" stroke="currentColor" strokeWidth="1.5" />
+                                <path d="m3.5 6 8.5 7 8.5-7" stroke="currentColor" strokeWidth="1.5" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-            )}
+            </div>
         </>
     )
 }

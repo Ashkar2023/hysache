@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import stackedVideoOne from '../../assets/videos/1.mp4'
-import stackedVideoTwo from '../../assets/videos/2.mp4'
-import storyVideo from '../../assets/videos/6.mp4'
+import stackedVideoOne from '../../assets/videos/talking-model.mp4'
+import stackedVideoTwo from '../../assets/videos/loom-stock2.webm'
+import stackedVideoThree from '../../assets/videos/tripy-montage-compatible.webm'
 import { HEADER_OFFSET, NAV_BREAKPOINT } from '../../config/layout.js'
 import useReducedMotion from '../../hooks/use-reduced-motion.js'
 import { gsap } from '../../lib/gsap.js'
@@ -9,14 +9,14 @@ import { gsap } from '../../lib/gsap.js'
 const SECTIONS = [
     {
         id: 'story',
-        video: storyVideo,
+        video: stackedVideoOne,
         eyebrow: 'The Hysache way',
         title: <>Bespoke.<br /><span className="md:whitespace-nowrap">Defined by detail.</span></>,
         copy: 'Hysache began with a simple idea: to create something thoughtful, distinctive, and quietly beautiful. Every detail is considered with care, shaped by a belief that the things we choose should feel as meaningful as they look.',
     },
     {
         id: 'about',
-        video: stackedVideoOne,
+        video: stackedVideoTwo,
         eyebrow: '01 — The house of Hysache',
         title: <>Rooted in tradition.<br />Made for your everyday.</>,
         copy: 'We believe the things you wear should feel like you. Thoughtful silhouettes, familiar textures, and a little of the extraordinary — woven into the everyday.',
@@ -25,7 +25,7 @@ const SECTIONS = [
     },
     {
         id: 'craft',
-        video: stackedVideoTwo,
+        video: stackedVideoThree,
         eyebrow: '03 — The art of making',
         title: <>Care in every thread.</>,
         copy: 'It begins with the fabric, and lives in the details. A patient process, a thoughtful finish, and a respect for the hands that bring each piece to life.',
