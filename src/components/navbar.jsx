@@ -151,7 +151,7 @@ export default function Navbar() {
                 aria-modal={open ? 'true' : undefined}
                 aria-hidden={!open}
                 aria-label="Navigation menu"
-                inert={open ? undefined : ''}
+                inert={!open}
             >
                 <nav className="flex flex-col gap-5" aria-label="Mobile navigation">
                     {MAIN_NAVIGATION.map(([label, href]) => (

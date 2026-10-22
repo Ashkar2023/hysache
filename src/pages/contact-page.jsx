@@ -1,10 +1,43 @@
+import { useLayoutEffect, useRef } from 'react'
 import { CONTACT_EMAIL } from '../config/site.js'
+import useNavigationAnimationDelay from '../hooks/use-navigation-animation-delay.jsx'
+import useReducedMotion from '../hooks/use-reduced-motion.js'
+import { gsap } from '../lib/gsap.js'
 
 const FIELD_CLASS = 'w-full rounded-xs border border-cream/15 bg-black/10 px-4 py-3.5 text-sm text-cream outline-none transition-colors placeholder:text-cream/35 hover:border-cream/30 focus:border-nav-accent'
 
 export default function ContactPage() {
+    const page = useRef(null)
+    const reduced = useReducedMotion()
+    const navigationAnimationDelay = useNavigationAnimationDelay()
+
+    useLayoutEffect(() => {
+        if (reduced) return
+
+        const context = gsap.context(() => {
+            gsap.from('.contact-title', {
+                yPercent: 24,
+                autoAlpha: 0,
+                duration: 0.8,
+                delay: navigationAnimationDelay / 1000,
+                ease: 'power3.out',
+            })
+
+            gsap.from('.contact-form > *', {
+                y: 20,
+                autoAlpha: 0,
+                duration: 0.55,
+                stagger: 0.07,
+                delay: 0.42 + navigationAnimationDelay / 1000,
+                ease: 'power3.out',
+            })
+        }, page)
+
+        return () => context.revert()
+    }, [navigationAnimationDelay, reduced])
+
     return (
-        <div className="relative isolate min-h-svh place-content-center overflow-hidden bg-nav-bg px-[6%] pb-12 pt-24 text-cream nav:px-[8%] nav:pb-16 nav:pt-20">
+        <div ref={page} className="relative isolate min-h-svh place-content-center overflow-hidden bg-nav-bg px-[6%] pb-12 pt-24 text-cream nav:px-[8%] nav:pb-16 nav:pt-20">
             <div
                 className="pointer-events-none absolute inset-0 -z-10 opacity-[.18]"
                 style={{
@@ -18,13 +51,13 @@ export default function ContactPage() {
             <section className="mx-auto max-w-[1180px]" aria-labelledby="contact-title">
                 <h1
                     id="contact-title"
-                    className="text-center text-[clamp(2rem,15.5vw,10rem)] font-thin leading-[.88] text-nav-accent"
+                    className="contact-title text-center text-[clamp(2rem,15.5vw,10rem)] font-thin leading-[.88] text-nav-accent"
                 >
                     CONTACT<span className="text-[.28em]">.</span>
                 </h1>
 
                 <form
-                    className="mx-auto mt-12 grid max-w-[930px] gap-5 nav:mt-14 nav:grid-cols-2 nav:gap-x-6 nav:gap-y-5"
+                    className="contact-form mx-auto mt-12 grid max-w-[930px] gap-5 nav:mt-14 nav:grid-cols-2 nav:gap-x-6 nav:gap-y-5"
                     action={`mailto:${CONTACT_EMAIL}`}
                     method="post"
                     encType="text/plain"

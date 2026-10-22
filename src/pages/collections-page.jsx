@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Zoom from 'react-medium-image-zoom'
 import { CATALOG_COLLECTIONS } from '../data/catalog.js'
+import useNavigationAnimationDelay from '../hooks/use-navigation-animation-delay.jsx'
 import useReducedMotion from '../hooks/use-reduced-motion.js'
 import { gsap, ScrollTrigger } from '../lib/gsap.js'
 
@@ -70,9 +71,10 @@ function CollectionStory({ collection, index, compact = false }) {
 }
 
 export default function CollectionsPage() {
-    const catalog = useRef(null)
+    const page = useRef(null)
     const compactBarSentinel = useRef(null)
     const reduced = useReducedMotion()
+    const navigationAnimationDelay = useNavigationAnimationDelay()
     const zoomMargin = useZoomMargin()
     const [activeIndex, setActiveIndex] = useState(0)
     const [isCompactBarStuck, setIsCompactBarStuck] = useState(false)
@@ -96,6 +98,8 @@ export default function CollectionsPage() {
     useLayoutEffect(() => {
         const context = gsap.context(() => {
             const sections = gsap.utils.toArray('.catalog-collection')
+            const titleLines = gsap.utils.toArray('[data-collections-title-line]')
+            const intro = gsap.utils.toArray('[data-collections-intro]')
 
             sections.forEach((section, index) => {
                 ScrollTrigger.create({
@@ -110,15 +114,36 @@ export default function CollectionsPage() {
             const cards = gsap.utils.toArray('.catalog-image-card')
 
             if (reduced) {
-                gsap.set(cards, { clearProps: 'all' })
+                gsap.set([...titleLines, ...intro, ...cards], { clearProps: 'all' })
                 return
             }
 
+            gsap.from(titleLines, {
+                yPercent: 115,
+                duration: 0.9,
+                stagger: 0.1,
+                delay: navigationAnimationDelay / 1000,
+                ease: 'power4.out',
+            })
+
+            gsap.from(intro, {
+                y: 18,
+                autoAlpha: 0,
+                duration: 0.65,
+                stagger: 0.08,
+                delay: 0.38 + navigationAnimationDelay / 1000,
+                ease: 'power3.out',
+            })
+
             cards.forEach((card) => {
+                const bounds = card.getBoundingClientRect()
+                const initiallyVisible = bounds.top < window.innerHeight && bounds.bottom > 0
+
                 gsap.from(card, {
                     y: 36,
                     autoAlpha: 0,
                     duration: 1,
+                    delay: initiallyVisible ? navigationAnimationDelay / 1000 : 0,
                     ease: 'power3.out',
                     scrollTrigger: {
                         trigger: card,
@@ -127,7 +152,7 @@ export default function CollectionsPage() {
                     },
                 })
             })
-        }, catalog)
+        }, page)
 
         const frame = window.requestAnimationFrame(() => ScrollTrigger.refresh())
 
@@ -135,29 +160,29 @@ export default function CollectionsPage() {
             window.cancelAnimationFrame(frame)
             context.revert()
         }
-    }, [reduced])
+    }, [navigationAnimationDelay, reduced])
 
     return (
-        <div className="bg-cream shadow-xs shadow-nav-bg border-zinc-300 bg-linear-to-b from-transparent via-transparent via-80% to-nav-bg/15">
+        <div ref={page} className="bg-cream shadow-xs shadow-nav-bg border-zinc-300 bg-linear-to-b from-transparent via-transparent via-80% to-nav-bg/15">
             <section className="flex min-h-[clamp(300px,58svh,380px)] items-end px-[5%] pb-12 pt-32 sm:px-[7%] sm:pb-16" aria-labelledby="magazine-title">
                 <div className="mx-auto w-full max-w-[1600px]">
-                    <p className="eyebrow mb-6 text-faint text-center">The complete collection</p>
+                    <p className="eyebrow mb-6 text-faint text-center" data-collections-intro>The complete collection</p>
                     <div className="flex flex-col items-center">
                         <h1 id="magazine-title" className="w-full max-w-[1400px] pb-4 text-[clamp(4.7rem,17vw,15rem)] font-thin uppercase leading-[.72] tracking-[-.065em] text-nav-bg">
-                            <span className="block overflow-hidden pb-[.1em]"><span className="block">Hysache</span></span>
-                            <span className="block overflow-hidden pb-[.1em]"><span className="ml-[12vw] block nav:ml-[23vw]">Magazine</span></span>
+                            <span className="block overflow-hidden pb-[.1em]"><span className="block" data-collections-title-line>Hysache</span></span>
+                            <span className="block overflow-hidden pb-[.1em]"><span className="block text-right" data-collections-title-line>Magazine</span></span>
                         </h1>
-                        <p className="mx-auto w-full md:w-1/3 text-center text-sm leading-[1.9] text-muted md:pb-1">
+                        <p className="mx-auto w-full md:w-1/3 text-center text-sm leading-[1.9] text-muted md:pb-1" data-collections-intro>
                             A living edit of thoughtful silhouettes, tactile fabrics, and pieces made to move through everyday rituals. Explore the complete Hysache wardrobe, gathered in one place.
                         </p>
-                        <p className="small-caps mt-6 text-center text-faint">
+                        <p className="small-caps mt-6 text-center text-faint" data-collections-intro>
                             [Select any image for a closer look]
                         </p>
                     </div>
                 </div>
             </section>
 
-            <section ref={catalog} className="relative mx-auto max-w-[1600px] px-3 pb-28 pt-8 min-[480px]:px-5 md:grid md:grid-cols-[minmax(0,2.125fr)_minmax(210px,1fr)] md:gap-6 md:px-[4%] md:pb-40 md:pt-16 nav:grid-cols-[minmax(0,2.85fr)_minmax(240px,1fr)] nav:gap-[clamp(32px,4vw,72px)]" aria-label="All Hysache collections">
+            <section className="relative mx-auto max-w-[1600px] px-3 pb-28 pt-8 min-[480px]:px-5 md:grid md:grid-cols-[minmax(0,2.125fr)_minmax(210px,1fr)] md:gap-6 md:px-[4%] md:pb-40 md:pt-16 nav:grid-cols-[minmax(0,2.85fr)_minmax(240px,1fr)] nav:gap-[clamp(32px,4vw,72px)]" aria-label="All Hysache collections">
                 <div ref={compactBarSentinel} className="pointer-events-none absolute left-0 top-8 h-px w-px" aria-hidden="true" />
                 <div
                     className={`sticky top-20 z-30 -mx-3 mb-7 border-y border-line bg-cream/95 px-4 py-4 backdrop-blur-sm transition-[opacity,transform] duration-300 min-[480px]:-mx-5 min-[480px]:px-6 md:hidden ${isCompactBarStuck ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'}`}
@@ -205,8 +230,6 @@ export default function CollectionsPage() {
                                                     src={product.image}
                                                     alt={product.alt}
                                                     style={{ objectPosition: product.position }}
-                                                    loading={collectionIndex === 0 && productIndex === 0 ? 'eager' : 'lazy'}
-                                                    decoding="async"
                                                 />
                                             </Zoom>
                                         </figure>

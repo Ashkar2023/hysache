@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef } from 'react'
+import useNavigationAnimationDelay from '../hooks/use-navigation-animation-delay.jsx'
 import useReducedMotion from '../hooks/use-reduced-motion.js'
 import { gsap, ScrollTrigger } from '../lib/gsap.js'
 import loomImage from '../assets/images/craft-loom.webp'
@@ -16,6 +17,7 @@ const CRAFT_IMAGES = {
 export default function CraftPage() {
     const page = useRef(null)
     const reduced = useReducedMotion()
+    const navigationAnimationDelay = useNavigationAnimationDelay()
 
     useLayoutEffect(() => {
         const context = gsap.context(() => {
@@ -28,10 +30,10 @@ export default function CraftPage() {
             }
 
             gsap.from('.craft-title-line', {
-                yPercent: 110,
+                yPercent: 115,
                 duration: 1,
                 stagger: 0.1,
-                delay: 0.25,
+                delay: navigationAnimationDelay / 1000,
                 ease: 'power4.out',
             })
 
@@ -70,7 +72,7 @@ export default function CraftPage() {
             window.cancelAnimationFrame(frame)
             context.revert()
         }
-    }, [reduced])
+    }, [navigationAnimationDelay, reduced])
 
     return (
         <div ref={page} className="overflow-hidden bg-cream text-nav-bg">
@@ -105,7 +107,7 @@ export default function CraftPage() {
                                 <img data-craft-image className="aspect-[4/3] h-full w-full object-cover" src={loomImage} alt="Placeholder for artisans weaving fabric on a loom" loading="eager" />
                             </figure>
                             <figure className="col-span-4 col-start-9 -mt-14 overflow-hidden border-[6px] border-nav-bg bg-nav-bg nav:col-span-3 nav:col-start-10 nav:mt-40 nav:border-0">
-                                <img data-craft-image className="aspect-[3/4] h-full w-full object-cover" src={threadImage} alt="Placeholder for a close study of yarn and woven material" loading="lazy" />
+                                <img data-craft-image className="aspect-[3/4] h-full w-full object-cover" src={threadImage} alt="Placeholder for a close study of yarn and woven material" />
                             </figure>
                         </div>
                     </div>
@@ -115,10 +117,10 @@ export default function CraftPage() {
                     <div className="mx-auto max-w-[1600px]">
                         <div className="grid grid-cols-12 items-start gap-3 nav:gap-6">
                             <figure className="col-span-5 mt-24 overflow-hidden nav:col-span-3 nav:col-start-2 nav:mt-40">
-                                <img data-craft-image className="aspect-[3/4] h-full w-full object-cover" src={cutCloseImage} alt="Placeholder for a Hysache employee finishing a garment" loading="lazy" />
+                                <img data-craft-image className="aspect-[3/4] h-full w-full object-cover" src={cutCloseImage} alt="Placeholder for a Hysache employee finishing a garment" />
                             </figure>
                             <figure className="col-span-8 col-start-5 row-start-1 overflow-hidden nav:col-span-7 nav:col-start-6">
-                                <img data-craft-image className="aspect-[4/3] h-full w-full object-cover" src={cutWideImage} alt="Placeholder for employees handcrafting a Hysache piece" loading="lazy" />
+                                <img data-craft-image className="aspect-[4/3] h-full w-full object-cover" src={cutWideImage} alt="Placeholder for employees handcrafting a Hysache piece" />
                             </figure>
                         </div>
 

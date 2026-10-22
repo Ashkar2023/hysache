@@ -5,7 +5,7 @@ import useNavigationAnimationDelay from '../hooks/use-navigation-animation-delay
 import galleryOne from '../assets/images/gallery/1.webp'
 import galleryTwo from '../assets/images/gallery/2.webp'
 import galleryThree from '../assets/images/gallery/3.webp'
-import galleryFour from '../assets/images/gallery/4.webp'
+import galleryFour from '../assets/images/story-fabricstudy.webp'
 import galleryFive from '../assets/images/gallery/5.webp'
 import gallerySix from '../assets/images/gallery/6.webp'
 import gallerySeven from '../assets/images/gallery/7.webp'
@@ -113,6 +113,15 @@ export default function GalleryPage() {
 
         const context = gsap.context(() => {
             const imageCards = gsap.utils.toArray('.gallery-image-card')
+            const titleLines = gsap.utils.toArray('.gallery-title-line')
+
+            gsap.from(titleLines, {
+                yPercent: 110,
+                duration: 0.9,
+                stagger: 0.1,
+                delay: navigationAnimationDelay / 1000,
+                ease: 'power4.out',
+            })
 
             gsap.set(imageCards, { clipPath: 'inset(100%)' })
 
@@ -120,7 +129,7 @@ export default function GalleryPage() {
                 clipPath: 'inset(0%)',
                 duration: 0.8,
                 stagger: 0.12,
-                delay: .35,
+                delay: .35 + navigationAnimationDelay / 1000,
                 ease: 'power4.out',
             })
 
@@ -196,7 +205,7 @@ export default function GalleryPage() {
             context.revert()
             split?.revert()
         }
-    }, [])
+    }, [navigationAnimationDelay])
 
     return (
         <section
@@ -209,8 +218,8 @@ export default function GalleryPage() {
                 className="px-[6%] pt-32 text-center text-[clamp(3.2rem,10vw,9rem)] font-thin leading-[.88] text-nav-accent nav:px-[8%] uppercase"
             >
                 <span className="inline-block text-left">
-                    <span className="block">Behind</span>
-                    <span className="ml-[12vw] block nav:ml-[23vw]">the scenes</span>
+                    <span className="block overflow-hidden pb-[.1em]"><span className="gallery-title-line block">Behind</span></span>
+                    <span className="block overflow-hidden pb-[.1em]"><span className="gallery-title-line ml-[12vw] block nav:ml-[23vw]">the scenes</span></span>
                 </span>
             </h1>
             <div className="relative z-1 opacity-80 mt-32 grid w-full grid-cols-12 items-start gap-x-3 gap-y-[clamp(8rem,18vh,14rem)] px-3 min-[480px]:gap-x-4 min-[480px]:px-5 nav:gap-x-6 nav:px-[4%]">

@@ -15,7 +15,6 @@ export default function StoreSection() {
                         src={storeImage}
                         alt="Inside the Hysache store, with curated garments and warm wooden displays"
                         className="absolute inset-0 h-full w-full object-cover"
-                        loading="lazy"
                     />
                     <div className="absolute inset-0 bg-nav-bg/25" aria-hidden="true" />
                     <div

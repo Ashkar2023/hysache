@@ -2,6 +2,7 @@ import { createContext, useContext, useRef } from 'react'
 import { useLocation } from 'react-router'
 
 const NavigationAnimationDelayContext = createContext(0)
+const INITIAL_PAGE_LOAD_DELAY = 1500
 const SUBSEQUENT_NAVIGATION_DELAY = 800
 
 export function NavigationAnimationDelayProvider({ children }) {
@@ -13,7 +14,7 @@ export function NavigationAnimationDelayProvider({ children }) {
         hasNavigated.current = true
     }
 
-    const delay = hasNavigated.current ? SUBSEQUENT_NAVIGATION_DELAY : 0
+    const delay = hasNavigated.current ? SUBSEQUENT_NAVIGATION_DELAY : INITIAL_PAGE_LOAD_DELAY
 
     return (
         <NavigationAnimationDelayContext.Provider value={delay}>

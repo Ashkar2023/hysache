@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from 'react'
-import testimonialOrnament from '../../assets/images/testimonial-ornament.png'
+import testimonialOrnament from '../../assets/images/testimonial-ornament-comp.png'
 import { GOOGLE_REVIEWS_URL } from '../../config/site.js'
 import useReducedMotion from '../../hooks/use-reduced-motion.js'
 import { gsap } from '../../lib/gsap.js'

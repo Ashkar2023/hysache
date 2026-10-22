@@ -1,9 +1,9 @@
 import { useLayoutEffect, useRef } from 'react'
-import mandalaOrnament from '../../assets/images/mandala-ornament.png'
-import collectionOne from '../../assets/images/collections/1.webp'
+import mandalaOrnament from '../../assets/images/mandala-ornament-comp.png'
+import collectionOne from '../../assets/images/collections/1-comp.jpg'
 import collectionTwo from '../../assets/videos/yellow-model.mp4'
 import collectionThree from '../../assets/videos/white-model.mp4'
-import collectionFour from '../../assets/images/collections/4.webp'
+import collectionFour from '../../assets/images/collections/4-comp.jpg'
 import useReducedMotion from '../../hooks/use-reduced-motion.js'
 import useSiteNavigation from '../../hooks/use-site-navigation.js'
 import { gsap } from '../../lib/gsap.js'
@@ -143,8 +143,7 @@ export default function CollectionsSection() {
                                         className="h-full w-full object-cover"
                                         src={collection.image}
                                         alt=""
-                                        loading="lazy"
-                                        decoding="async"
+                                        loading='eager'
                                     />
                                 )}
                             </div>

@@ -1,5 +1,4 @@
 import { useLayoutEffect, useRef } from 'react'
-import heroImage from '../../assets/images/1.png'
 import useNavigationAnimationDelay from '../../hooks/use-navigation-animation-delay.jsx'
 import useReducedMotion from '../../hooks/use-reduced-motion.js'
 import { gsap, SplitText } from '../../lib/gsap.js'
@@ -27,7 +26,7 @@ export default function HeroSection() {
                 yPercent: 20,
                 autoAlpha: 0,
                 duration: 0.45,
-                delay: .35 + navigationAnimationDelay / 1000,
+                delay: navigationAnimationDelay / 1000,
                 stagger: 0.06,
                 ease: 'power3.out',
                 clearProps: 'transform,opacity,visibility',
@@ -42,7 +41,7 @@ export default function HeroSection() {
             <h1 className="sr-only">Hysache — homegrown luxe</h1>
             <img
                 className="h-full w-full object-cover object-center select-none"
-                src={heroImage}
+                src="/hero.jpg"
                 alt="Hysache kurti editorial, celebrating soft silhouettes and natural textures"
                 fetchPriority="high"
             />

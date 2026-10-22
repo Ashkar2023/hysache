@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react'
-import talkingModelVideo from '../assets/videos/talking-model.mp4'
 import storyHeroImage from '../assets/images/story.webp'
+import useNavigationAnimationDelay from '../hooks/use-navigation-animation-delay.jsx'
 import useReducedMotion from '../hooks/use-reduced-motion.js'
 import { gsap, ScrollTrigger } from '../lib/gsap.js'
 import holdClothImage from '../assets/images/story-holdcloth.webp'
@@ -17,6 +17,7 @@ const STORY_IMAGES = {
 export default function StoryPage() {
     const page = useRef(null)
     const reduced = useReducedMotion()
+    const navigationAnimationDelay = useNavigationAnimationDelay()
 
     useLayoutEffect(() => {
         const context = gsap.context(() => {
@@ -32,7 +33,7 @@ export default function StoryPage() {
                 yPercent: 115,
                 duration: 1.1,
                 stagger: 0.1,
-                delay: 0.25,
+                delay: navigationAnimationDelay / 1000,
                 ease: 'power4.out',
             })
 
@@ -82,20 +83,11 @@ export default function StoryPage() {
             window.cancelAnimationFrame(frame)
             context.revert()
         }
-    }, [reduced])
+    }, [navigationAnimationDelay, reduced])
 
     return (
         <div ref={page} className="bg-cream text-nav-bg">
             <section className="story-hero relative isolate min-h-svh overflow-hidden bg-nav-bg text-cream" aria-labelledby="story-title">
-                {/* <video
-                    className="story-film absolute inset-0 -z-20 h-[112%] w-full object-cover opacity-40 saturate-[.7]"
-                    src={talkingModelVideo}
-                    autoPlay={!reduced}
-                    muted
-                    loop
-                    playsInline
-                    aria-hidden="true"
-                /> */}
                 <img
                     src={storyHeroImage}
                     className="story-film absolute inset-0 -z-20 h-[112%] w-full object-cover opacity-40 saturate-[.7]"
@@ -132,7 +124,7 @@ export default function StoryPage() {
 
                     <figure className="relative nav:col-span-3 nav:col-start-6 nav:mt-20">
                         <div className="aspect-[3/4] overflow-hidden bg-footer-cream">
-                            <img data-story-image className="h-full w-full object-cover" src={holdClothImage} alt="Placeholder for an image from the Hysache archive" loading="lazy" />
+                            <img data-story-image className="h-full w-full object-cover" src={holdClothImage} alt="Placeholder for an image from the Hysache archive" />
                         </div>
                         <figcaption className="mt-3 small-caps text-faint">From the archive / 01</figcaption>
                     </figure>
@@ -159,10 +151,10 @@ export default function StoryPage() {
 
                     <div className="grid grid-cols-12 items-start gap-3 nav:gap-6">
                         <figure className="col-span-12 overflow-hidden bg-footer-cream md:col-span-8 nav:col-span-6">
-                            <img data-story-image className="aspect-[4/3] h-full w-full object-cover" src={fabricStudyImage} alt="Placeholder for a Hysache fabric sourcing photograph" loading="lazy" />
+                            <img data-story-image className="aspect-[4/3] h-full w-full object-cover" src={fabricStudyImage} alt="Placeholder for a Hysache fabric sourcing photograph" />
                         </figure>
                         <figure className="hidden overflow-hidden bg-footer-cream md:col-span-4 md:col-start-9 md:mt-20 md:block nav:col-span-3 nav:col-start-8 nav:mt-36">
-                            <img data-story-image className="aspect-[3/4] h-full w-full object-cover" src={throughMarketImage} alt="Placeholder for a photograph from the Hysache journey" loading="lazy" />
+                            <img data-story-image className="aspect-[3/4] h-full w-full object-cover" src={throughMarketImage} alt="Placeholder for a photograph from the Hysache journey" />
                         </figure>
                         <p className="col-span-8 col-start-3 mt-16 text-center text-[clamp(2rem,5vw,5.5rem)] font-thin leading-[1.05] tracking-[-.05em] nav:col-span-7 nav:col-start-4 nav:mt-28" data-story-reveal>
                             And that is how <span className="text-nav-bg">HYSACHE</span> came to life.

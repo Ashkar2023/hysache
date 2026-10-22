@@ -1,5 +1,5 @@
 import { CONTACT_EMAIL, FOOTER_SITEMAP, FOOTER_VISIT, GOOGLE_MAPS_URL, INSTAGRAM_URL, WHATSAPP_URL } from '../config/site.js'
-import footerPattern from '../assets/images/footer-bg-pattern.png'
+import footerPattern from '../assets/images/footer-bg-pattern-comp.png'
 import useSiteNavigation from '../hooks/use-site-navigation.js'
 import Logo from './logo.jsx'
 
@@ -27,7 +27,7 @@ export default function Footer() {
                 <div className="flex flex-1 flex-col nav:contents">
                     <div className="flex-1 nav:col-start-1 nav:row-start-1">
                         <a href="/#home" className="group inline-flex flex-col items-start gap-3 min-[560px]:flex-row min-[560px]:items-center min-[560px]:gap-4" aria-label="Hysache home" onClick={(event) => navigate(event, '/#home')}>
-                            <Logo className="w-[42px] text-nav-bg transition-transform duration-300 group-hover:rotate-6 nav:w-[54px]" />
+                            <Logo className="w-[42px] text-nav-bg transition-transform duration-400 ease-in-out group-hover:scale-110 nav:w-[54px]" />
                             <span className="text-[26px] font-light leading-none uppercase tracking-wide min-[560px]:text-[32px] nav:text-[44px]">Hysache</span>
                         </a>
                         <p className="mt-4 max-w-[240px] text-[11px] leading-[1.7] text-footer-muted nav:mt-7 nav:text-[12px]">
@@ -90,13 +90,13 @@ export default function Footer() {
                 </nav>
             </div>
 
-            <div className="relative z-10 flex flex-col gap-3 border-t border-line pt-5 font-mono text-[9px] text-footer-muted nav:flex-row nav:items-center nav:justify-between nav:pt-6 nav:text-[10px]">
+            <div className="relative z-10 gap-3 border-t border-line pt-5 font-mono text-[9px] text-footer-muted nav:pt-6 nav:text-[10px]">
                 <span>© {COPYRIGHT_YEAR} Hysache</span>
-                <div className="flex flex-wrap gap-x-7 gap-y-3">
+                {/* <div className="flex flex-wrap gap-x-7 gap-y-3">
                     <span>Privacy Policy</span>
                     <span>Terms of Service</span>
                     <span>Cookie Settings</span>
-                </div>
+                </div> */}
             </div>
         </footer>
     )
