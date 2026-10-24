@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import { useLenis } from 'lenis/react'
 import { Outlet, useLocation } from 'react-router'
+import CursorTrail from '../components/cursor-trail.jsx'
 import Footer from '../components/footer.jsx'
 import Navbar from '../components/navbar.jsx'
 import WhatsAppButton from '../components/whatsapp-button.jsx'
@@ -68,6 +69,7 @@ export default function SiteLayout() {
             </main>
             <Footer />
             {location.pathname === '/' && <WhatsAppButton />}
+            <CursorTrail />
         </>
     )
 }

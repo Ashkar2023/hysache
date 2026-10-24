@@ -117,7 +117,7 @@ export default function StoryPage() {
                 <h2 id="experience-title" className="sr-only">More than twenty years of experience</h2>
                 <div className="mx-auto grid max-w-[1500px] gap-12 nav:grid-cols-12 nav:gap-8">
                     <div className="nav:col-span-4" data-story-reveal>
-                        <p className="eyebrow text-faint">01 / Experience</p>
+                        <p className="eyebrow text-faint">Experience</p>
                         <p className="mt-7 text-[clamp(6rem,14vw,13rem)] font-thin leading-[.72] tracking-[-.08em] text-nav-bg">20<span className="align-top text-[.28em] tracking-normal">+</span></p>
                         <p className="mt-6 small-caps text-faint">Years behind the seams</p>
                     </div>
@@ -126,7 +126,7 @@ export default function StoryPage() {
                         <div className="aspect-[3/4] overflow-hidden bg-footer-cream">
                             <img data-story-image className="h-full w-full object-cover" src={holdClothImage} alt="Placeholder for an image from the Hysache archive" />
                         </div>
-                        <figcaption className="mt-3 small-caps text-faint">From the archive / 01</figcaption>
+                        <figcaption className="mt-3 small-caps text-faint">From the archive</figcaption>
                     </figure>
 
                     <div className="self-end nav:col-span-3 nav:col-start-10 nav:pb-16" data-story-reveal>
@@ -141,7 +141,7 @@ export default function StoryPage() {
                 <div className="mx-auto max-w-[1600px]">
                     <div className="mb-14 grid gap-8 nav:grid-cols-12 nav:items-end">
                         <div className="nav:col-span-5" data-story-reveal>
-                            <p className="eyebrow mb-6 text-faint">02 / The journey</p>
+                            <p className="eyebrow mb-6 text-faint">The journey</p>
                             <h2 id="journey-title" className="text-[clamp(3.2rem,7vw,7.5rem)] font-thin leading-[.9] tracking-[-.055em]">In search of<br />what feels right.</h2>
                         </div>
                         <p className="max-w-[600px] text-[14px] leading-[1.95] text-muted nav:col-span-5 nav:col-start-8" data-story-reveal>
@@ -167,7 +167,7 @@ export default function StoryPage() {
                 <div className="pointer-events-none absolute -right-[.05em] top-8 text-[clamp(7rem,23vw,24rem)] font-thin leading-none tracking-[-.08em] text-nav-accent/[.06]" aria-hidden="true">H</div>
                 <div className="relative mx-auto grid max-w-[1440px] gap-14 nav:grid-cols-12 nav:items-center">
                     <div className="nav:col-span-6" data-story-reveal>
-                        <p className="eyebrow mb-8 text-nav-accent">03 / Our name, our point of view</p>
+                        <p className="eyebrow mb-8 text-nav-accent">Our name, our point of view</p>
                         <h2 id="hysache-title" className="text-[clamp(3.5rem,8vw,8rem)] font-thin leading-[.86] tracking-[-.055em] text-nav-accent">Everything<br />we learned,<br />made visible.</h2>
                     </div>
                     <div className="nav:col-span-4 nav:col-start-9" data-story-reveal>
@@ -181,7 +181,7 @@ export default function StoryPage() {
 
             <section className="px-[6%] py-24 nav:px-[8%] nav:py-44" aria-labelledby="luxe-title">
                 <div className="mx-auto max-w-[1500px]">
-                    <p className="eyebrow text-center text-faint">04 / The belief</p>
+                    <p className="eyebrow text-center text-faint">The belief</p>
                     <h2 id="luxe-title" className="mx-auto mt-8 max-w-[1200px] text-center text-[clamp(3.8rem,10vw,10rem)] font-thin leading-[.82] tracking-[-.065em]" data-story-reveal>
                         Homegrown<br /><span className="italic text-nav-bg/55">luxe.</span>
                     </h2>
@@ -198,7 +198,7 @@ export default function StoryPage() {
                     aria-hidden="true"
                 />
                 <div className="mx-auto w-full max-w-[1440px]" data-story-reveal>
-                    <p className="eyebrow mb-8 text-nav-accent">05 / Still becoming</p>
+                    <p className="eyebrow mb-8 text-nav-accent">Still becoming</p>
                     <h2 id="still-title" className="max-w-[1200px] text-[clamp(3rem,7.4vw,7.6rem)] font-thin leading-[.95] tracking-[-.055em]">
                         We are still on that journey—learning, creating, and bringing our vision of homegrown ethnic fashion to more people.
                     </h2>

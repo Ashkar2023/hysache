@@ -1,5 +1,6 @@
 import { CONTACT_EMAIL, FOOTER_SITEMAP, FOOTER_VISIT, GOOGLE_MAPS_URL, INSTAGRAM_URL, WHATSAPP_URL } from '../config/site.js'
 import footerPattern from '../assets/images/footer-bg-pattern-comp.png'
+import fabricTexture from '../assets/images/fabric-texture.jpg'
 import useSiteNavigation from '../hooks/use-site-navigation.js'
 import Logo from './logo.jsx'
 
@@ -10,25 +11,24 @@ export default function Footer() {
     const navigate = useSiteNavigation()
 
     return (
-        <footer id="contact" className="site-footer isolate flex flex-col justify-end overflow-hidden bg-footer-cream px-[7%] pb-6 text-nav-bg">
-            <div className="pointer-events-none absolute inset-x-0 bottom-[430px] top-0 z-0 nav:bottom-[285px]" aria-hidden="true">
+        <footer id="contact" className="site-footer isolate flex flex-col justify-end overflow-hidden bg-footer-cream text-nav-bg">
+            <div className="pointer-events-none absolute inset-x-0 bottom-1/2 top-0 z-0" aria-hidden="true">
                 <img
                     src={footerPattern}
                     alt=""
-                    className="h-full w-full object-cover object-center opacity-30 md:opacity-10"
+                    className="h-full w-full object-cover object-center opacity-30 md:opacity-10 footer-bg-pattern"
                     style={{
-                        maskImage: 'linear-gradient(to bottom, black 0%, black 25%, transparent 100%)',
-                        WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 25%, transparent 100%)',
+                        maskImage: 'linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
+                        WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 60%, transparent 100%)',
                     }}
                 />
             </div>
 
-            <div className="relative z-10 flex gap-8 pb-9 nav:grid nav:grid-cols-[minmax(0,1fr)_repeat(2,clamp(160px,18vw,260px))_auto] nav:gap-10 nav:pb-[54px]">
+            <div className="relative z-10 flex gap-8 px-[7%] nav:grid nav:grid-cols-[minmax(0,1fr)_repeat(2,clamp(160px,18vw,260px))_auto] nav:gap-10">
                 <div className="flex flex-1 flex-col nav:contents">
                     <div className="flex-1 nav:col-start-1 nav:row-start-1">
-                        <a href="/#home" className="group inline-flex flex-col items-start gap-3 min-[560px]:flex-row min-[560px]:items-center min-[560px]:gap-4" aria-label="Hysache home" onClick={(event) => navigate(event, '/#home')}>
+                        <a href="/#home" className="group inline-flex" aria-label="Hysache home" onClick={(event) => navigate(event, '/#home')}>
                             <Logo className="w-[42px] text-nav-bg transition-transform duration-400 ease-in-out group-hover:scale-110 nav:w-[54px]" />
-                            <span className="text-[26px] font-light leading-none uppercase tracking-wide min-[560px]:text-[32px] nav:text-[44px]">Hysache</span>
                         </a>
                         <p className="mt-4 max-w-[240px] text-[11px] leading-[1.7] text-footer-muted nav:mt-7 nav:text-[12px]">
                             Homegrown luxe.
@@ -90,14 +90,58 @@ export default function Footer() {
                 </nav>
             </div>
 
-            <div className="relative z-10 gap-3 border-t border-line pt-5 font-mono text-[9px] text-footer-muted nav:pt-6 nav:text-[10px]">
-                <span>© {COPYRIGHT_YEAR} Hysache</span>
-                {/* <div className="flex flex-wrap gap-x-7 gap-y-3">
-                    <span>Privacy Policy</span>
-                    <span>Terms of Service</span>
-                    <span>Cookie Settings</span>
-                </div> */}
-            </div>
+            <a
+                href="/#home"
+                className="group relative z-10 mt-5 block w-full overflow-hidden"
+                aria-label="Hysache home"
+                onClick={(event) => navigate(event, '/#home')}
+            >
+                <svg
+                    className="block h-auto w-full transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.01] group-focus-visible:scale-[1.01]"
+                    viewBox="0 0 1600 280"
+                    role="img"
+                    aria-label="Hysache"
+                    preserveAspectRatio="none"
+                >
+                    <defs>
+                        <pattern
+                            id="footer-wordmark-texture"
+                            width="320"
+                            height="178"
+                            patternUnits="userSpaceOnUse"
+                        >
+                            <image
+                                href={fabricTexture}
+                                width="320"
+                                height="178"
+                                preserveAspectRatio="xMidYMid slice"
+                            />
+                        </pattern>
+                        <mask id="footer-wordmark-mask">
+                            <rect width="1600" height="280" fill="black" />
+                            <text
+                                x="32"
+                                y="258"
+                                fill="white"
+                                fontFamily="Manrope, sans-serif"
+                                fontSize="320"
+                                fontWeight="500"
+                                letterSpacing="12"
+                                textLength="1536"
+                                lengthAdjust="spacing"
+                            >
+                                HYSACHE
+                            </text>
+                        </mask>
+                    </defs>
+                    <rect
+                        width="1600"
+                        height="280"
+                        fill="url(#footer-wordmark-texture)"
+                        mask="url(#footer-wordmark-mask)"
+                    />
+                </svg>
+            </a>
         </footer>
     )
 }

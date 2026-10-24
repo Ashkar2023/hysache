@@ -92,7 +92,7 @@ export default function CraftPage() {
                     <div className="mx-auto max-w-[1600px]">
                         <div className="mb-14 grid gap-8 nav:grid-cols-12 nav:items-end">
                             <div className="nav:col-span-5" data-craft-reveal>
-                                <p className="eyebrow mb-6 text-nav-accent">01 / Craft</p>
+                                <p className="eyebrow mb-6 text-nav-accent">Craft</p>
                                 <h2 id="craft-material-title" className="text-[clamp(3.3rem,7vw,7.2rem)] font-thin leading-[1] tracking-[-.055em] text-nav-accent">
                                     It begins with<br />the fabric.
                                 </h2>
@@ -116,17 +116,24 @@ export default function CraftPage() {
                 <section className="bg-footer-cream px-[4%] py-24 nav:py-40" aria-labelledby="craft-detail-title">
                     <div className="mx-auto max-w-[1600px]">
                         <div className="grid grid-cols-12 items-start gap-3 nav:gap-6">
-                            <figure className="col-span-5 mt-24 overflow-hidden nav:col-span-3 nav:col-start-2 nav:mt-40">
+                            <figure className="col-span-6 col-start-1 row-start-2 -mt-16 overflow-hidden nav:col-span-3 nav:col-start-2 nav:row-start-1 nav:mt-40">
                                 <img data-craft-image className="aspect-[3/4] h-full w-full object-cover" src={cutCloseImage} alt="Placeholder for a Hysache employee finishing a garment" />
                             </figure>
-                            <figure className="col-span-8 col-start-5 row-start-1 overflow-hidden nav:col-span-7 nav:col-start-6">
+                            <figure className="col-span-11 col-start-2 row-start-1 overflow-hidden nav:col-span-7 nav:col-start-6">
                                 <img data-craft-image className="aspect-[4/3] h-full w-full object-cover" src={cutWideImage} alt="Placeholder for employees handcrafting a Hysache piece" />
                             </figure>
+                            <div className="col-span-5 col-start-8 row-start-2 self-center pl-2 nav:hidden" data-craft-reveal>
+                                <span className="block h-px w-full bg-nav-bg/20" aria-hidden="true" />
+                                <p className="eyebrow mt-4 text-faint">Measured / shaped / finished</p>
+                                <p className="mt-4 text-[clamp(1.05rem,4.6vw,1.35rem)] font-light leading-[1.45] tracking-[-.025em] text-nav-bg/75">
+                                    Every line considered before the final stitch.
+                                </p>
+                            </div>
                         </div>
 
                         <div className="mt-16 grid gap-8 nav:mt-24 nav:grid-cols-12">
                             <div className="nav:col-span-4" data-craft-reveal>
-                                <p className="eyebrow mb-6 text-faint">02 / Detail</p>
+                                <p className="eyebrow mb-6 text-faint">Detail</p>
                                 <h2 id="craft-detail-title" className="text-[clamp(3rem,6vw,6rem)] font-thin leading-[.92] tracking-[-.05em]">
                                     Finished<br />by hand.
                                 </h2>

@@ -1,5 +1,6 @@
 import storeMapImage from '../../assets/images/hysache-map.svg'
 import storeImage from '../../assets/images/store.jpeg'
+import ArrowIcon from '../arrow-icon.jsx'
 import { GOOGLE_MAPS_URL } from '../../config/site.js'
 
 export default function StoreSection() {
@@ -23,7 +24,7 @@ export default function StoreSection() {
                     />
 
                     <div className="absolute inset-x-0 bottom-0 z-10 px-[9%] pb-12 text-cream nav:bottom-auto nav:top-1/2 nav:-translate-y-1/2 nav:px-[14%] nav:pb-0">
-                        <p className="eyebrow mb-7">04 — Our store</p>
+                        <p className="eyebrow mb-7">Our store</p>
                         <h2
                             id="store-title"
                             className="max-w-[520px] text-[clamp(40px,5.5vw,76px)] font-light leading-[1.04] tracking-[-.05em]"
@@ -43,7 +44,7 @@ export default function StoreSection() {
                         target="_blank"
                         rel="noopener"
                         referrerPolicy="origin"
-                        className="relative block w-full h-full"
+                        className="group relative block h-full w-full"
                         aria-label="Open Hysache in Google Maps"
                     >
                         <div
@@ -59,7 +60,7 @@ export default function StoreSection() {
                         />
                         <span className="small-caps absolute bottom-6 right-6 inline-flex items-center text-nav-accent md:gap-4 md:px-5 md:py-3">
                             Open in Google Maps
-                            <span className="text-base transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">↗</span>
+                            <ArrowIcon className="size-4 transition-transform duration-300 group-hover:translate-x-1" direction="up-right" />
                         </span>
                     </a>
                 </div>
@@ -67,4 +68,3 @@ export default function StoreSection() {
         </section>
     )
 }
-

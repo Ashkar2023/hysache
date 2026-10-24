@@ -4,6 +4,7 @@ import collectionOne from '../../assets/images/collections/1-comp.jpg'
 import collectionTwo from '../../assets/videos/yellow-model.mp4'
 import collectionThree from '../../assets/videos/white-model.mp4'
 import collectionFour from '../../assets/images/collections/4-comp.jpg'
+import ArrowIcon from '../arrow-icon.jsx'
 import useReducedMotion from '../../hooks/use-reduced-motion.js'
 import useSiteNavigation from '../../hooks/use-site-navigation.js'
 import { gsap } from '../../lib/gsap.js'
@@ -94,7 +95,7 @@ export default function CollectionsSection() {
             />
 
             <div className="relative z-10 w-full self-start lg:top-24 lg:basis-[30%] lg:shrink-0">
-                <p className="eyebrow mb-7">02 — Collections</p>
+                <p className="eyebrow mb-7">Collections</p>
                 <h2
                     id="collections-title"
                     className="mb-6 max-w-[420px] text-[clamp(34px,5vw,58px)] font-light leading-[1.12] tracking-[-.05em] text-nav-bg"
@@ -106,7 +107,7 @@ export default function CollectionsSection() {
                 </p>
                 <a className="small-caps group mt-9 inline-flex items-center gap-6 py-2" href="/collections" onClick={(event) => navigate(event, '/collections')}>
                     View all
-                    <span className="text-xl font-light transition-transform group-hover:translate-x-[5px]" aria-hidden="true">→</span>
+                    <ArrowIcon className="size-5 transition-transform group-hover:translate-x-[5px]" />
                 </a>
             </div>
 

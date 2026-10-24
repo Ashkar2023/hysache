@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef } from 'react'
 import testimonialOrnament from '../../assets/images/testimonial-ornament-comp.png'
+import ArrowIcon from '../arrow-icon.jsx'
 import { GOOGLE_REVIEWS_URL } from '../../config/site.js'
 import useReducedMotion from '../../hooks/use-reduced-motion.js'
 import { gsap } from '../../lib/gsap.js'
@@ -160,7 +161,6 @@ export default function TestimonialsSection() {
 
                 <div className="relative z-10 flex min-h-svh flex-col justify-center py-12 nav:py-16">
                     <div className="px-[7%] text-center">
-                        <p className="eyebrow mb-7 text-nav-bg">05 — Testimonials</p>
                         <div className="flex flex-col gap-6">
                             <h2
                                 id="testimonials-title"
@@ -223,7 +223,7 @@ export default function TestimonialsSection() {
                             </p>
                             <span className="small-caps inline-flex items-center gap-5">
                                 Open Google
-                                <span className="text-xl transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">↗</span>
+                                <ArrowIcon className="size-5 transition-transform duration-300 group-hover:translate-x-1" direction="up-right" />
                             </span>
                         </a>
                     </div>

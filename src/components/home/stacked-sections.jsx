@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import stackedVideoOne from '../../assets/videos/talking-model-comp.mp4'
 import stackedVideoTwo from '../../assets/videos/loom-stock2-comp.webm'
 import stackedVideoThree from '../../assets/videos/tripy-montage-comp.mp4'
+import ArrowIcon from '../arrow-icon.jsx'
 import { HEADER_OFFSET, NAV_BREAKPOINT } from '../../config/layout.js'
 import useReducedMotion from '../../hooks/use-reduced-motion.js'
 import { gsap } from '../../lib/gsap.js'
@@ -17,7 +18,7 @@ const SECTIONS = [
     {
         id: 'about',
         video: stackedVideoTwo,
-        eyebrow: '01 — The house of Hysache',
+        eyebrow: 'The house of Hysache',
         title: <>Rooted in tradition.<br />Made for your everyday.</>,
         copy: 'We believe the things you wear should feel like you. Thoughtful silhouettes, familiar textures, and a little of the extraordinary — woven into the everyday.',
         link: 'Our story',
@@ -26,7 +27,7 @@ const SECTIONS = [
     {
         id: 'craft',
         video: stackedVideoThree,
-        eyebrow: '03 — The art of making',
+        eyebrow: 'The art of making',
         title: <>Care in every thread.</>,
         copy: 'It begins with the fabric, and lives in the details. A patient process, a thoughtful finish, and a respect for the hands that bring each piece to life.',
         link: 'Get in touch',
@@ -136,7 +137,7 @@ function StackedPanel({ section, index, panelRef }) {
                     {link && href && (
                         <a className="small-caps group mt-10 inline-flex w-fit items-center gap-6 py-2" href={href}>
                             {link}
-                            <span className="text-xl font-light transition-transform group-hover:translate-x-[5px]" aria-hidden="true">→</span>
+                            <ArrowIcon className="size-5 transition-transform group-hover:translate-x-[5px]" />
                         </a>
                     )}
                 </Reveal>

@@ -26,3 +26,4 @@ dist/
 node_modules/
 .vercel
 unused-media
+.env

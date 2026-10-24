@@ -7,6 +7,7 @@ const TAGLINE = 'Homegrown Luxe'
 
 export default function HeroSection() {
     const title = useRef(null)
+    const tagline = useRef(null)
     const reduced = useReducedMotion()
     const navigationAnimationDelay = useNavigationAnimationDelay()
 
@@ -31,6 +32,17 @@ export default function HeroSection() {
                 ease: 'power3.out',
                 clearProps: 'transform,opacity,visibility',
             })
+
+            gsap.from(tagline.current.children, {
+                y: 7,
+                autoAlpha: 0,
+                filter: 'blur(4px)',
+                duration: 0.8,
+                delay: 0.5 + navigationAnimationDelay / 1000,
+                stagger: 0.045,
+                ease: 'power2.out',
+                clearProps: 'transform,opacity,visibility,filter',
+            })
         }, title)
 
         return () => context.revert()
@@ -54,6 +66,7 @@ export default function HeroSection() {
                     HYSACHE
                 </p>
                 <span
+                    ref={tagline}
                     aria-hidden="true"
                     className="mt-1 nav:mt-0 flex w-full justify-between whitespace-nowrap text-[clamp(1rem,1vw,2rem)] text-shadow-md py-2 nav:py-0 font-light uppercase leading-none nav:tracking-[0.4em] text-nav-accent nav:justify-end"
                 >

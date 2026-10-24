@@ -5,6 +5,7 @@ import { NAV_BREAKPOINT } from '../config/layout.js'
 import { CONTACT_EMAIL, GOOGLE_MAPS_URL, INSTAGRAM_URL, MAIN_NAVIGATION, WHATSAPP_URL } from '../config/site.js'
 import useNavigationAnimationDelay from '../hooks/use-navigation-animation-delay.jsx'
 import useSiteNavigation from '../hooks/use-site-navigation.js'
+import ArrowIcon from './arrow-icon.jsx'
 import Logo from './logo.jsx'
 
 // the duration of the navbar menu close seems to end faster cause of the cubic bezier. so keep this slightly earlier. it feels smooth
@@ -162,7 +163,7 @@ export default function Navbar() {
                             onClick={(event) => navigateAfterMenuClose(event, href)}
                         >
                             {label}
-                            <span className="ml-auto text-2xl">↗</span>
+                            <ArrowIcon className="ml-auto size-6" direction="up-right" />
                         </a>
                     ))}
                 </nav>

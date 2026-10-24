@@ -1,3 +1,4 @@
+import ArrowIcon from '../components/arrow-icon.jsx'
 import useSiteNavigation from '../hooks/use-site-navigation.js'
 
 export default function NotFoundPage() {
@@ -19,7 +20,7 @@ export default function NotFoundPage() {
                     onClick={(event) => navigate(event, '/#home')}
                 >
                     Back home
-                    <span className="text-base transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+                    <ArrowIcon className="size-4 transition-transform group-hover:translate-x-1" />
                 </a>
             </div>
         </section>
